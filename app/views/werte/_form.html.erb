@@ -1,0 +1,30 @@
+<%= form_for(@wert) do |f| %>
+  <% if @wert.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wert.errors.count, "error") %> prohibited this wert from being saved:</h2>
+
+      <ul>
+      <% @wert.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :stand %><br />
+    <%= f.text_field :stand %>
+  </div>
+  <div class="field">
+    <%= f.label :zaehler_id %><br />
+    <%= collection_select(:zaehler_id, :id, @zaehler, :id, :nr_bez, { :selected => @lastWert.zaehler_id+1 }) %>
+  </div>
+  <div class="field">  
+    <%#= f.label :datum %><br />
+	<%#= f.date_select( "datum" ) %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

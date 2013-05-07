@@ -1,0 +1,45 @@
+<%= form_for(@zaehler) do |f| %>
+  <% if @zaehler.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@zaehler.errors.count, "error") %> prohibited this zaehler from being saved:</h2>
+
+      <ul>
+      <% @zaehler.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nummer %><br />
+    <%= f.number_field :nummer, :value => @lastZaehler.nummer %>
+  </div>
+  <div class="field">
+    <%= f.label :typ_id %><br />
+    <%= collection_select(:typ_id, :id, @typen, :id, :bezeichnung, { :selected => @lastZaehler.typ_id }) %>
+  </div>
+  <div class="field">
+    <%= f.label :bezeichnung %><br />
+    <%= f.text_field :bezeichnung, :value => @lastZaehler.bezeichnung %>
+  </div>
+  <div class="field">
+    <%= f.label :kurzbezeichnung %><br />
+    <%= f.text_field :kurzbezeichnung, :value => @lastZaehler.kurzbezeichnung %>
+  </div>
+  <div class="field">
+    <%= f.label :standort %><br />
+    <%= f.text_field :standort, :value => @lastZaehler.standort %>
+  </div>
+  <div class="field">
+    <%= f.label :lat %><br />
+    <%= f.text_field :lat, :value => @lastZaehler.lat %>
+  </div>
+  <div class="field">
+    <%= f.label :lng %><br />
+    <%= f.text_field :lng, :value => @lastZaehler.lng %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

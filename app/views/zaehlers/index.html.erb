@@ -1,0 +1,35 @@
+<h1>Liste der Zähler</h1>
+<p id="notice"><%= notice %></p>
+<table>
+  <tr>
+    <th>Nummer</th>
+    <th>Typ</th>
+    <th>Bezeichnung</th>
+    <th>Kurzbezeichnung</th>
+    <th>Standort</th>
+    <th>Lat</th>
+    <th>Lng</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @zaehlers.each do |zaehler| %>
+  <tr>
+    <td><%= zaehler.nummer %></td>
+    <td><%= zaehler.typ_id %></td>
+    <td><%= zaehler.bezeichnung %></td>
+    <td><%= zaehler.kurzbezeichnung %></td>
+    <td><%= zaehler.standort %></td>
+    <td><%= zaehler.lat %></td>
+    <td><%= zaehler.lng %></td>
+    <td><%= link_to 'Anzeigen', zaehler %></td>
+    <td><%= link_to 'Ändern', edit_zaehler_path(zaehler) %></td>
+    <td><%= link_to 'Löschen', zaehler, method: :delete, data: { confirm: 'Sind Sie sicher?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Neuer Zähler', new_zaehler_path %>

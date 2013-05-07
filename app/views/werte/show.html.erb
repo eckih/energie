@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Stand:</b>
+  <%= @wert.stand %>
+</p>
+
+<p>
+  <b>Datum:</b>
+  <%= @wert.datum %>
+</p>
+
+<p>
+  <b>Zaehler:</b>
+  <%= @wert.zaehler_id %>
+</p>
+
+
+<%= link_to 'Ändern', edit_wert_path(@wert) %> |
+<%= link_to 'Zurück', werte_path %>

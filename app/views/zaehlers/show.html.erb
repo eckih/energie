@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nummer:</b>
+  <%= @zaehler.nummer %>
+</p>
+
+<p>
+  <b>Typ:</b>
+  <%= @zaehler.typ_id %>
+</p>
+
+<p>
+  <b>Bezeichnung:</b>
+  <%= @zaehler.bezeichnung %>
+</p>
+
+<p>
+  <b>Kurzbezeichnung:</b>
+  <%= @zaehler.kurzbezeichnung %>
+</p>
+
+<p>
+  <b>Standort:</b>
+  <%= @zaehler.standort %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%= @zaehler.lat %>
+</p>
+
+<p>
+  <b>Lng:</b>
+  <%= @zaehler.lng %>
+</p>
+
+
+<%= link_to 'Ändern', edit_zaehler_path(@zaehler) %> |
+<%= link_to 'Zurück', zaehlers_path %>
