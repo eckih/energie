@@ -13,32 +13,49 @@
 
   <div class="field">
     <%= f.label :nummer %><br />
-    <%= f.number_field :nummer, :value => @lastZaehler.nummer %>
+    <!-- f.number_field :nummer, :value => @lastZaehler.nummer -->
+    <%= f.number_field :nummer %>
   </div>
   <div class="field">
     <%= f.label :typ_id %><br />
+    <!-- collection_select(:typ_id, :id, @typen, :id, :bezeichnung, { :selected => @lastZaehler.typ_id }) -->
     <%= collection_select(:typ_id, :id, @typen, :id, :bezeichnung, { :selected => @lastZaehler.typ_id }) %>
   </div>
   <div class="field">
     <%= f.label :bezeichnung %><br />
-    <%= f.text_field :bezeichnung, :value => @lastZaehler.bezeichnung %>
+    <!--%= f.text_field :bezeichnung, :value => @lastZaehler.bezeichnung %-->
+    <%= f.text_field :bezeichnung %>
   </div>
   <div class="field">
     <%= f.label :kurzbezeichnung %><br />
-    <%= f.text_field :kurzbezeichnung, :value => @lastZaehler.kurzbezeichnung %>
+    <!--%= f.text_field :kurzbezeichnung, :value => @lastZaehler.kurzbezeichnung %-->
+    <%= f.text_field :kurzbezeichnung  %>
   </div>
   <div class="field">
     <%= f.label :standort %><br />
-    <%= f.text_field :standort, :value => @lastZaehler.standort %>
+    <!--%= f.text_field :standort, :value => @lastZaehler.standort %-->
+    <%= f.text_field :standort  %>
   </div>
   <div class="field">
     <%= f.label :lat %><br />
-    <%= f.text_field :lat, :value => @lastZaehler.lat %>
+    <!--%= f.text_field :lat, :value => @lastZaehler.lat %-->
+    <%= f.text_field :lat  %>
   </div>
   <div class="field">
     <%= f.label :lng %><br />
-    <%= f.text_field :lng, :value => @lastZaehler.lng %>
+    <!--%= f.text_field :lng, :value => @lastZaehler.lng %-->
+    <%= f.text_field :lng %>
   </div>
+  
+  <%= f.fields_for :werte do |builder| %>
+  <p>
+  	<div class="field">
+  	<%= builder.label :stand, "Stand" %><br />
+  	<%= builder.text_field :stand %>
+  	</div>
+  </p>
+  <% end %>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

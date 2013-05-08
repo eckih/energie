@@ -35,6 +35,11 @@
   <%= @zaehler.lng %>
 </p>
 
+<ol>
+  <% for wert in @zaehler.werte %>
+  <li><%= h wert.stand %></li>
+  <% end %>
+</ol>
 
 <%= link_to 'Ändern', edit_zaehler_path(@zaehler) %> |
 <%= link_to 'Zurück', zaehlers_path %>

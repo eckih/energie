@@ -13,7 +13,7 @@ class WerteController < ApplicationController
   end
   
   def eingabe
-    @werte = Wert.all
+    #@werte = Wert.all
     @zaehler = Zaehler.all
 
     respond_to do |format|

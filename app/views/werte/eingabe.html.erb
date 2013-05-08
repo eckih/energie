@@ -3,19 +3,20 @@
 <table>
   <tr>
     <th>Nr.</th>
-    <th>Wert</th>
+    <th>Bez</th>
+    <th>Wert 1</th>
+    <th>Wert 2</th>
+    <th>Wert 3</th>
   </tr>
 
 <% @zaehler.each do |zaehler| %>
   	<%= content_tag_for(:tr, zaehler) do %>
 	    <td><%= zaehler.nummer %></td>
 	    <td><%= zaehler.bezeichnung %></td>
+	    	<% for wert in zaehler.werte %>
+	    	<td><%= h best_in_place wert, :stand %></td>
+	    	<% end %>
 	<% end %>
 <% end %>
 </table>
-
-<br />
-<%= form_for(@zaehler) do |f| %>
-aaa
-<% end %>
 <%= link_to 'Neuer Wert', new_wert_path %>

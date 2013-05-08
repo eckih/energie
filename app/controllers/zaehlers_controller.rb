@@ -28,6 +28,7 @@ class ZaehlersController < ApplicationController
     @zaehler = Zaehler.new
     @typen = Typ.all
     @lastZaehler = Zaehler.last
+    3.times { @zaehler.werte.build }
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,6 +39,8 @@ class ZaehlersController < ApplicationController
   # GET /zaehlers/1/edit
   def edit
     @zaehler = Zaehler.find(params[:id])
+    @typen = Typ.all
+    @lastZaehler = Zaehler.last
   end
 
   # POST /zaehlers
