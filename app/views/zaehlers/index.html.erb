@@ -2,10 +2,13 @@
 <p id="notice"><%= notice %></p>
 <table>
   <tr>
+    <th>Id</th>
     <th>Nummer</th>
     <th>Typ</th>
+    <th>Typbez</th>
     <th>Bezeichnung</th>
     <th>Kurzbezeichnung</th>
+    <th>Faktor</th>
     <th>Standort</th>
     <th>Lat</th>
     <th>Lng</th>
@@ -16,10 +19,13 @@
 
 <% @zaehlers.each do |zaehler| %>
   <tr>
+    <td><%= zaehler.id %></td>
     <td><%= zaehler.nummer %></td>
     <td><%= zaehler.typ_id %></td>
+    <td><%= zaehler.typbez_id %></td>
     <td><%= zaehler.bezeichnung %></td>
     <td><%= zaehler.kurzbezeichnung %></td>
+    <td><%= zaehler.faktor %></td>
     <td><%= zaehler.standort %></td>
     <td><%= zaehler.lat %></td>
     <td><%= zaehler.lng %></td>

@@ -1,22 +1,28 @@
-<h1>Eingabe der Werte</h1>
+<h1>Eingabe der Energiewerte</h1>
 
+  <p>Tag der Ablesung: <%= text_field_tag "tagderAblesung" %></p>
+  
 <table>
   <tr>
-    <th>Nr.</th>
-    <th>Bez</th>
-    <th>Wert 1</th>
-    <th>Wert 2</th>
-    <th>Wert 3</th>
+    <th>Zaehler</th>
+    <th>Stand</th>
+    <th>Datum</th>
+    <th>Id</th>
+
   </tr>
 
-<% @zaehler.each do |zaehler| %>
-  	<%= content_tag_for(:tr, zaehler) do %>
-	    <td><%= zaehler.nummer %></td>
-	    <td><%= zaehler.bezeichnung %></td>
-	    	<% for wert in zaehler.werte %>
-	    	<td><%= h best_in_place wert, :stand %></td>
-	    	<% end %>
+<% @arr.each do |wert| %>
+  	<%= content_tag_for(:tr, wert) do %>
+  		<td><%= Zaehler.find(wert.zaehler_id).nr_bez %></td>
+	    <td><%= best_in_place wert, :stand %></td>
+	    <td><%= best_in_place wert, :datum, :type => :date, :classes => "hasDatePicker wdatum", :data => {:stand => wert.stand } %></td>
+	    <!--td><span class="wdatum"><%#= text_field_tag "wert.datum" %></span></td-->
+	    <!--td><input type="text" id="datum_<%#= wert.id %>" class="wdatum" /></td-->
+	    <!--td><%#= text_field(:wert, :datum, :class => "wdatum") %></td-->
+	    <!--td><%= best_in_place wert, :datum, :type => :input, :classes => "wdatum" %></td-->
+	    <td><%= wert.id %></td>
 	<% end %>
 <% end %>
 </table>
-<%= link_to 'Neuer Wert', new_wert_path %>
+
+ 

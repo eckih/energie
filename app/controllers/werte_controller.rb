@@ -12,16 +12,6 @@ class WerteController < ApplicationController
     end
   end
   
-  def eingabe
-    #@werte = Wert.all
-    @zaehler = Zaehler.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @werte }
-    end
-  end
-  
   # GET /werte/1
   # GET /werte/1.json
   def show
@@ -30,6 +20,20 @@ class WerteController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @wert }
+    end
+  end
+  
+  def eingabe
+    
+    @zaehlers = Zaehler.all
+    @arr = Array.new(@zaehlers.size)
+    for @zaehler in @zaehlers
+      @arr[@zaehlers.index(@zaehler)] = Wert.create(zaehler_id: @zaehler.id,datum: Date.today)
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @zaehler }
     end
   end
 
@@ -70,7 +74,7 @@ class WerteController < ApplicationController
 
   # PUT /werte/1
   # PUT /werte/1.json
-  def update
+  def _update
     @wert = Wert.find(params[:id])
 
     respond_to do |format|
@@ -83,6 +87,20 @@ class WerteController < ApplicationController
       end
     end
   end
+  
+def update
+  @wert = Wert.find(params[:id])
+
+  respond_to do |format|
+      if @wert.update_attributes(params[:wert])
+        format.html { redirect_to @wert, notice: 'Wert wurde erfolgreich geändert.' }
+        format.json { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.json { respond_with_bip(@wert) }
+      end
+  end
+end
 
   # DELETE /werte/1
   # DELETE /werte/1.json

@@ -16,8 +16,15 @@
     <%= f.text_field :stand %>
   </div>
   <div class="field">
+    <%= f.label :datum %><br />
+    <%= f.date_select :datum, :order => [:day, :month, :year] %>
+  </div>
+  <div class="field">
     <%= f.label :zaehler_id %><br />
-    <%= collection_select(:zaehler_id, :id, @zaehler, :id, :nr_bez, { :selected => @lastWert.zaehler_id+1 }) %>
+    <%#= collection_select(:zaehler_id, :id, @zaehler, :id, :nr_bez, { :selected => @lastWert.zaehler_id+1 }) %>
+    <%= f.collection_select :zaehler_id, Zaehler.all, :id, :nr_bez %>
+    <%#= f.text_field :zaehler_id %>
+    <%#= best_in_place wert, :zaehler_id, :type => :select, :collection => @zaehler.map { |f| [f.id, 'Nr.:' + f.nummer.to_s + ' ' + f.bezeichnung] } %>
   </div>
   <div class="field">  
     <%#= f.label :datum %><br />

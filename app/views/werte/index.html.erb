@@ -2,8 +2,9 @@
 
 <table>
   <tr>
+    <th>Id</th>
     <th>Stand</th>
-    <th>Typ</th>
+    <th>Datum</th>
     <th>Zaehler</th>
     <th></th>
     <th></th>
@@ -12,8 +13,9 @@
 
 <% @werte.each do |wert| %>
   	<%= content_tag_for(:tr, wert) do %>
+	    <td><%= wert.id %></td>
 	    <td><%= best_in_place wert, :stand %></td>
-	    <td><%= best_in_place wert, :datum %></td>
+	    <td><%= best_in_place wert, :datum, :type => :date %></td>
 	    <td><%= best_in_place wert, :zaehler_id, :type => :select, :collection => @zaehler.map { |f| [f.id, 'Nr.:' + f.nummer.to_s + ' ' + f.bezeichnung] }  %></td>
     	<td><%= link_to 'Anzeigen', wert %></td>
     	<td><%= link_to 'Ändern', edit_wert_path(wert) %></td>

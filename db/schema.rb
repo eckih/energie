@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507081312) do
+ActiveRecord::Schema.define(:version => 20130528065202) do
+
+  create_table "typbezs", :force => true do |t|
+    t.string   "bezeichnung"
+    t.string   "kurzbezeichnung"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "typen", :force => true do |t|
     t.string   "bezeichnung"
@@ -38,6 +45,8 @@ ActiveRecord::Schema.define(:version => 20130507081312) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "typ_id"
+    t.integer  "faktor"
+    t.integer  "typbez_id"
   end
 
 end

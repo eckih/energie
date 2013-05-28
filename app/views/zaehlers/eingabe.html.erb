@@ -1,0 +1,24 @@
+<h1>Eingabe der Werte</h1>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Nr.</th>
+    <th>Bez</th>
+    <th>Wert</th>
+  </tr>
+
+<% @zaehlers.each do |zaehler| %>
+  <%= form_for zaehler do |f| %>
+  	<%= content_tag_for(:tr, zaehler) do %>
+	    <td><%= zaehler.id %></td>
+	    <td><%= best_in_place zaehler, :nummer %></td>
+	    <td><%= zaehler.bezeichnung %></td>
+	    <td><%= text_field_tag zaehler.werte.last.stand %></td>
+		<td><!-- text_field_tag @w[zaehler.id], @w[zaehler.id].stand --></td>
+		<td><%= f.submit %></td>
+	<% end %>
+  <% end %>	
+<% end %>
+</table>
+

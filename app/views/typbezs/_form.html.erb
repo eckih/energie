@@ -1,0 +1,25 @@
+<%= form_for(@typbez) do |f| %>
+  <% if @typbez.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@typbez.errors.count, "error") %> prohibited this typbez from being saved:</h2>
+
+      <ul>
+      <% @typbez.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bezeichnung %><br />
+    <%= f.text_field :bezeichnung %>
+  </div>
+  <div class="field">
+    <%= f.label :kurzbezeichnung %><br />
+    <%= f.text_field :kurzbezeichnung %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

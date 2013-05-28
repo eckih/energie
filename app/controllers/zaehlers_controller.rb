@@ -15,20 +15,22 @@ class ZaehlersController < ApplicationController
   # GET /zaehlers/1.json
   def show
     @zaehler = Zaehler.find(params[:id])
+    @typenbez = Typbez.all
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @zaehler }
     end
   end
-
+  
   # GET /zaehlers/new
   # GET /zaehlers/new.json
   def new
     @zaehler = Zaehler.new
     @typen = Typ.all
+    @typenbez = Typbez.all
     @lastZaehler = Zaehler.last
-    3.times { @zaehler.werte.build }
+   # 3.times { @zaehler.werte.build }
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,6 +42,7 @@ class ZaehlersController < ApplicationController
   def edit
     @zaehler = Zaehler.find(params[:id])
     @typen = Typ.all
+    @typenbez = Typbez.all
     @lastZaehler = Zaehler.last
   end
 

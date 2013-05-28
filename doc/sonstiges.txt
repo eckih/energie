@@ -1,0 +1,44 @@
+$(document).ready(function() {
+	$.datepicker.regional['de'] = {clearText: 'löschen', clearStatus: 'aktuelles Datum löschen',
+		closeText: 'schließen', closeStatus: 'ohne Änderungen schließen',
+		prevText: '<zurück', prevStatus: 'letzten Monat zeigen',
+		nextText: 'Vor>', nextStatus: 'nächsten Monat zeigen',
+		currentText: 'heute', currentStatus: '',
+		monthNames: ['Januar','Februar','März','April','Mai','Juni',
+		'Juli','August','September','Oktober','November','Dezember'],
+		monthNamesShort: ['Jan','Feb','Mär','Apr','Mai','Jun',
+		'Jul','Aug','Sep','Okt','Nov','Dez'],
+		monthStatus: 'anderen Monat anzeigen', yearStatus: 'anderes Jahr anzeigen',
+		weekHeader: 'Wo', weekStatus: 'Woche des Monats',
+		dayNames: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
+		dayNamesShort: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+		dayNamesMin: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+		dayStatus: 'Setze DD als ersten Wochentag', dateStatus: 'Wähle D, M d',
+		dateFormat: 'dd.mm.yy', firstDay: 1, 
+		initStatus: 'Wähle ein Datum', isRTL: false};
+		$.datepicker.setDefaults($.datepicker.regional['de']);
+});
+
+
+
+// wenn tagderAblesung geändert wird, sollen sich alle Datumswerte ändert
+$( "#tagderAblesung" ).datepicker({
+	dateFormat: "yy-mm-dd" ,
+	onSelect:
+function() {  
+	//$( ".wdatum" ).datepicker( "setDate", $( "#tagderAblesung" ).datepicker("getDate") );
+	//alert("nur so...");
+	
+	//$( "#tagderAblesung" ).datepicker({ dateFormat: 'dd-mm-yy' }).val());
+	$( ".wdatum" ).html($( "#tagderAblesung" ).datepicker({ dateFormat: 'dd-mm-yy' }).val());
+	//alert("Nur so...");
+	//$( ".wdatum" ).hide();;
+	}});
+	
+//var defaultDate = $( "#tagderAblesung" ).datepicker( "option", "defaultDate" );
+
+$( "#tagderAblesung" ).datepicker();
+//$( ".wdatum" ).datepicker.setDefaults({ dateFormat: 'dd-mm-yy' });
+//$( ".wdatum" ).datepicker({ dateFormat: 'dd-mm-yy' });
+$.datepicker.formatDate( "yy-mm-dd", +2 );
+jQuery(".best_in_place").best_in_place();

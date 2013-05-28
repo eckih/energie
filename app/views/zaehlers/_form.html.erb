@@ -19,7 +19,13 @@
   <div class="field">
     <%= f.label :typ_id %><br />
     <!-- collection_select(:typ_id, :id, @typen, :id, :bezeichnung, { :selected => @lastZaehler.typ_id }) -->
-    <%= collection_select(:typ_id, :id, @typen, :id, :bezeichnung, { :selected => @lastZaehler.typ_id }) %>
+    <%= f. collection_select :typ_id, @typen, :id, :bezeichnung %>
+  </div>
+  <div class="field">
+    <%= f.label :typbez_id %><br />
+    <!-- collection_select(:typ_id, :id, @typen, :id, :bezeichnung, { :selected => @lastZaehler.typ_id }) -->
+    <%= f.collection_select :typbez_id, @typenbez, :id, :kurz_lang %> 
+    <!--, { :selected => @lastZaehler.typbez_id }) %-->
   </div>
   <div class="field">
     <%= f.label :bezeichnung %><br />
@@ -30,6 +36,10 @@
     <%= f.label :kurzbezeichnung %><br />
     <!--%= f.text_field :kurzbezeichnung, :value => @lastZaehler.kurzbezeichnung %-->
     <%= f.text_field :kurzbezeichnung  %>
+  </div>
+  <div class="field">
+    <%= f.label :faktor %><br />
+    <%= f.text_field :faktor %>
   </div>
   <div class="field">
     <%= f.label :standort %><br />
@@ -46,8 +56,8 @@
     <!--%= f.text_field :lng, :value => @lastZaehler.lng %-->
     <%= f.text_field :lng %>
   </div>
-  
-  <%= f.fields_for :werte do |builder| %>
+  <!-->
+  <%- f.fields_for :werte do |builder| %>
   <p>
   	<div class="field">
   	<%= builder.label :stand, "Stand" %><br />
@@ -55,6 +65,7 @@
   	</div>
   </p>
   <% end %>
+  -->
   
   <div class="actions">
     <%= f.submit %>

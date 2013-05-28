@@ -1,15 +1,23 @@
 Energie::Application.routes.draw do
 
+  resources :typbezs
+
+
   resources :werte do
     collection do
       get 'eingabe'
     end
   end
 
+  resources :zaehlers do
+    collection do
+    end
+  end
+
   resources :typen
 
 
-  resources :zaehlers
+
 
 
   # The priority is based upon order of creation:

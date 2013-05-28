@@ -7,7 +7,12 @@
 
 <p>
   <b>Typ:</b>
-  <%= @zaehler.typ_id %>
+  <%= h(@zaehler.typ.bezeichnung) %>
+</p>
+
+<p>
+  <b>Typbezeichnung:</b>
+  <%= h(@zaehler.typbez.kurz_lang) %>
 </p>
 
 <p>
@@ -18,6 +23,11 @@
 <p>
   <b>Kurzbezeichnung:</b>
   <%= @zaehler.kurzbezeichnung %>
+</p>
+
+<p>
+  <b>Faktor:</b>
+  <%= @zaehler.faktor %>
 </p>
 
 <p>

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Bezeichnung:</b>
+  <%= @typbez.bezeichnung %>
+</p>
+
+<p>
+  <b>Kurzbezeichnung:</b>
+  <%= @typbez.kurzbezeichnung %>
+</p>
+
+
+<%= link_to 'Edit', edit_typbez_path(@typbez) %> |
+<%= link_to 'Back', typbezs_path %>
