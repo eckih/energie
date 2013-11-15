@@ -5,20 +5,23 @@ Energie::Application.routes.draw do
 
   resources :werte do
     collection do
-      get 'eingabe'
+      get  'eingabe'
+      post 'mehrere'
+      put  'update_mehrere'
+      get 'datum_mehrere_aendern'
+      get 'destroy_checked'
+      get 'new_wertesatz'
+      post 'create'
     end
   end
 
   resources :zaehlers do
     collection do
+      get 'jsontest'
     end
   end
 
   resources :typen
-
-
-
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,15 @@
+--- 
+cursor_positions: 
+  - :path: Gemfile
+    :cursor_offset: 1208
+    :timestamp: 2013-11-10 12:19:18 +01:00
+  - :path: app/views/zaehlers/index.html.erb
+    :cursor_offset: 0
+    :timestamp: 2013-11-08 11:26:19 +01:00
+  - :path: app/views/zaehlers/index.html.erb:108
+    :cursor_offset: 0
+    :timestamp: 2013-11-10 13:54:58 +01:00
+  - :path: config/initializers/better_errors.rb
+    :cursor_offset: 179
+    :timestamp: 2013-11-10 14:03:03 +01:00
+files_to_retain: 0

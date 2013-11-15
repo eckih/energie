@@ -16,10 +16,11 @@ class ZaehlersController < ApplicationController
   def show
     @zaehler = Zaehler.find(params[:id])
     @typenbez = Typbez.all
+		@werte = Wert.where("zaehler_id = ?", params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @zaehler }
+      format.json { render :json => { :zaehler => @zaehler, :werte => @werte} }
     end
   end
   
@@ -29,7 +30,7 @@ class ZaehlersController < ApplicationController
     @zaehler = Zaehler.new
     @typen = Typ.all
     @typenbez = Typbez.all
-    @lastZaehler = Zaehler.last
+   @lastZaehler = Zaehler.last
    # 3.times { @zaehler.werte.build }
 
     respond_to do |format|
@@ -50,11 +51,11 @@ class ZaehlersController < ApplicationController
   # POST /zaehlers.json
   def create
     @zaehler = Zaehler.new(params[:zaehler])
-    @zaehler.typ_id = params[:typ_id][:id]
+    @zaehler.typ_id = params[:typ_id]
 
     respond_to do |format|
       if @zaehler.save
-        format.html { redirect_to @zaehler, notice: 'Zähler wurde erfolgreich erstellt.' }
+        format.html { redirect_to zaehlers_url, notice: 'Zähler ' + @zaehler.bezeichnung + ' Nr:' + @zaehler.nummer.to_s + ' wurde erfolgreich erstellt.' }
         format.json { render json: @zaehler, status: :created, location: @zaehler }
       else
         format.html { render action: "new" }
@@ -70,7 +71,7 @@ class ZaehlersController < ApplicationController
 
     respond_to do |format|
       if @zaehler.update_attributes(params[:zaehler])
-        format.html { redirect_to @zaehler, notice: 'Zähler wurde erfolgreich geändert.' }
+        format.html { redirect_to zaehlers_url, notice: 'Zähler ' + @zaehler.bezeichnung + ' Nr:' + @zaehler.nummer.to_s + ' wurde erfolgreich geändert.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -90,4 +91,15 @@ class ZaehlersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def jsontest
+    @zaehler = Zaehler.first
+    @werte = Wert.find_all_by_zaehler_id(66)
+    
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @werte }
+    end    
+  end  
+    
 end

@@ -85,7 +85,11 @@ GEM
     best_in_place (2.1.0)
       jquery-rails
       rails (~> 3.1)
+    better_errors (1.0.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
     builder (3.0.4)
+    coderay (1.1.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -144,6 +148,7 @@ PLATFORMS
 DEPENDENCIES
   arel!
   best_in_place
+  better_errors
   coffee-rails!
   journey!
   jquery-rails

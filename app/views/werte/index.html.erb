@@ -1,29 +1,30 @@
-<h1>Liste der Werte</h1>
+<% title "Liste der Werte" %>
 
+<%= link_to 'Ein neuer Wert', werte_path, :method => :post %> <!-- create -->
+<%= link_to 'Neuer Wertesatz', new_wertesatz_werte_path %>
+
+<%= form_tag mehrere_werte_path do %>
+  <p>
+    <%= submit_tag "Datum von gecheckten Werten ändern" %>
+    <%= submit_tag "gecheckte Werte löschen" %>
+  </p>
 <table>
   <tr>
+    <th></th>
     <th>Id</th>
     <th>Stand</th>
     <th>Datum</th>
     <th>Zaehler</th>
-    <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @werte.each do |wert| %>
   	<%= content_tag_for(:tr, wert) do %>
+      <td><%= check_box_tag "wert_ids[]", wert.id %></td>
 	    <td><%= wert.id %></td>
 	    <td><%= best_in_place wert, :stand %></td>
 	    <td><%= best_in_place wert, :datum, :type => :date %></td>
 	    <td><%= best_in_place wert, :zaehler_id, :type => :select, :collection => @zaehler.map { |f| [f.id, 'Nr.:' + f.nummer.to_s + ' ' + f.bezeichnung] }  %></td>
-    	<td><%= link_to 'Anzeigen', wert %></td>
-    	<td><%= link_to 'Ändern', edit_wert_path(wert) %></td>
-    	<td><%= link_to 'Löschen', wert, method: :delete, data: { confirm: 'Sind Sie sicher?' } %></td>
 	<% end %>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'Neuer Wert', new_wert_path %>
+<% end %>

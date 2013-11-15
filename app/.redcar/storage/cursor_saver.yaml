@@ -1,0 +1,6 @@
+--- 
+cursor_positions: 
+  - :path: views/zaehlers/show.html.erb
+    :cursor_offset: 0
+    :timestamp: 2013-11-07 10:22:24 +01:00
+files_to_retain: 0

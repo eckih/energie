@@ -1,0 +1,13 @@
+
+<%= form_tag mehrere_werte_path do %>
+  <% @arr.each do |wert| %>
+    <%= form_for(wert) do |f| %>
+      <%= render "fields", :f => f %>
+    <% end %>
+  ===================================================<br />
+  <% end %>
+  <p><%= submit_tag "mehrere Werte speichern" %></p>
+<% end %>
+
+
+

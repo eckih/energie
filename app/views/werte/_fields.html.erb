@@ -1,0 +1,12 @@
+  <div class="field">
+    <%= f.label :stand %><br />
+    <%= f.text_field :stand %>
+  </div>
+  <div class="field">
+    <%= f.label :datum %><br />
+    <%= f.date_select :datum, :order => [:day, :month, :year] %>
+  </div>
+  <div class="field">
+    <%= f.label :zaehler_id %><br />
+    <%= f.collection_select :zaehler_id, Zaehler.all, :id, :nr_bez %>
+  </div>

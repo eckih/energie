@@ -4,25 +4,26 @@
   
 <table>
   <tr>
-    <th>Zaehler</th>
+    <th>Zähler</th>
     <th>Stand</th>
     <th>Datum</th>
     <th>Id</th>
 
   </tr>
-
+<% mydate = Time.now %>
 <% @arr.each do |wert| %>
   	<%= content_tag_for(:tr, wert) do %>
   		<td><%= Zaehler.find(wert.zaehler_id).nr_bez %></td>
 	    <td><%= best_in_place wert, :stand %></td>
-	    <td><%= best_in_place wert, :datum, :type => :date, :classes => "hasDatePicker wdatum", :data => {:stand => wert.stand } %></td>
-	    <!--td><span class="wdatum"><%#= text_field_tag "wert.datum" %></span></td-->
-	    <!--td><input type="text" id="datum_<%#= wert.id %>" class="wdatum" /></td-->
-	    <!--td><%#= text_field(:wert, :datum, :class => "wdatum") %></td-->
-	    <!--td><%= best_in_place wert, :datum, :type => :input, :classes => "wdatum" %></td-->
+	    <td><%= best_in_place wert, :datum, :type => :date, :classes => "hasDatePicker wdatum" ,:data => {:stand => wert.stand } %></td>
+	    <!-- :activator => "#best_in_place_wert_#{wert.id}_stand" %-->
+	    <!--td>< select_date(wert.datum) %></td-->
 	    <td><%= wert.id %></td>
 	<% end %>
 <% end %>
 </table>
 
- 
+<%= form_for(@werte) do |f| %>
+  <%= f.label :wert %><br />
+  <%= f.number_field :wert %><br />
+<% end %> 

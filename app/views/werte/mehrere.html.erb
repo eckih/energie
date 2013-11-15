@@ -1,0 +1,11 @@
+
+
+<%= form_tag update_mehrere_werte_path, :method => :put do %>
+  <% for wert in @werte %>
+    <%= fields_for "werte[]", wert do |f| %>
+      <h2><%= h wert.zaehler_id %></h2>
+      <%= render "fields", :f => f %>
+    <% end %>
+  <% end %>
+  <p><%= submit_tag "Submit" %></p>
+<% end %>
