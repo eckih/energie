@@ -4,8 +4,8 @@ gem 'rails',     :git => 'git://github.com/rails/rails.git', :branch => '3-2-sta
 gem 'journey',   :git => 'git://github.com/rails/journey.git', :branch => '1-0-stable'
 gem 'arel',      :git => 'git://github.com/rails/arel.git', :branch => '3-0-stable'
 
-gem 'mysql2'
-
+gem "heroku"
+gem 'capistrano', '~> 3.0.1'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,6 +21,12 @@ end
 
 group :development do
   gem 'better_errors'
+  gem 'mysql2'
+end
+
+group :production do
+  gem 'pg'
+  gem 'thin'
 end
 
 gem 'jquery-rails'

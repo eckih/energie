@@ -1,4 +1,4 @@
-1384160158
+1384558596
 AddDatumToValues	/home/ecki/btsync/juwel/workspace/energie/db/migrate/20130507062625_add_datum_to_values.rb	class AddDatumToValues 
 AddDatumToWerte	/home/ecki/btsync/juwel/workspace/energie/db/migrate/20130507070404_add_datum_to_werte.rb	class AddDatumToWerte 
 AddFaktorToZaehlers	/home/ecki/btsync/juwel/workspace/energie/db/migrate/20130528062709_add_faktor_to_zaehlers.rb	class AddFaktorToZaehlers 

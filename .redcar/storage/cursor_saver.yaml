@@ -12,4 +12,7 @@ cursor_positions:
   - :path: config/initializers/better_errors.rb
     :cursor_offset: 179
     :timestamp: 2013-11-10 14:03:03 +01:00
+  - :path: capfile
+    :cursor_offset: 56
+    :timestamp: 2013-11-15 10:16:39 +01:00
 files_to_retain: 0

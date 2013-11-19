@@ -1,3 +1,4 @@
 --- 
-open_files: []
-
+open_files: 
+  - views/zaehlers/index.html.erb
+  - controllers/zaehlers_controller.rb
