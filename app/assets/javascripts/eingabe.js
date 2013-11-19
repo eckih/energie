@@ -37,4 +37,4 @@ $('.best_in_place').bind("ajax:success", function(){
 	alert('Name updated for '+$(this).data('stand'));
  });
 */
-});
+}); 
