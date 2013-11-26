@@ -89,6 +89,8 @@ GEM
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.0.4)
     capistrano (3.0.1)
       i18n
@@ -100,6 +102,7 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     daemons (1.1.9)
+    debug_inspector (0.0.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.20.1)
@@ -186,6 +189,7 @@ DEPENDENCIES
   arel!
   best_in_place
   better_errors
+  binding_of_caller
   capistrano (~> 3.0.1)
   coffee-rails!
   heroku

@@ -1,5 +1,6 @@
 # encoding: UTF-8
 class WerteController < ApplicationController
+
   # GET /werte
   # GET /werte.json
   def index

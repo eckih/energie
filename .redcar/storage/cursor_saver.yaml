@@ -9,10 +9,22 @@ cursor_positions:
   - :path: app/views/zaehlers/index.html.erb:108
     :cursor_offset: 0
     :timestamp: 2013-11-10 13:54:58 +01:00
-  - :path: config/initializers/better_errors.rb
-    :cursor_offset: 179
-    :timestamp: 2013-11-10 14:03:03 +01:00
   - :path: capfile
     :cursor_offset: 56
     :timestamp: 2013-11-15 10:16:39 +01:00
+  - :path: config/initializers/better_errors.rb
+    :cursor_offset: 0
+    :timestamp: 2013-11-19 09:47:17 +01:00
+  - :path: config/routes.rb
+    :cursor_offset: 257
+    :timestamp: 2013-11-21 20:26:22 +01:00
+  - :path: app/controllers/werte_controller.rb
+    :cursor_offset: 64
+    :timestamp: 2013-11-21 20:26:31 +01:00
+  - :path: app/assets/javascripts/application.js
+    :cursor_offset: 793
+    :timestamp: 2013-11-21 20:26:42 +01:00
+  - :path: app/views/layouts/application.html.erb
+    :cursor_offset: 187
+    :timestamp: 2013-11-21 20:26:54 +01:00
 files_to_retain: 0
