@@ -51,3 +51,5 @@ gem 'jquery-rails'
 gem 'therubyracer'
 gem 'best_in_place'
 # gem 'highcharts'
+#
+#
