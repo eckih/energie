@@ -50,6 +50,6 @@ gem 'jquery-rails'
 #gem 'execjs'
 gem 'therubyracer'
 gem 'best_in_place'
-# gem 'highcharts'
+gem 'highcharts'
 #
 #
