@@ -3,7 +3,7 @@
 <script type="text/javascript" charset="utf-8">
 $(function () {
  
-  
+// $(document).ready(function() {
   
   Highcharts.setOptions({
     lang: {
@@ -13,16 +13,17 @@ $(function () {
     }
   });
   
-  new Highcharts.Chart({
+  chart = new Highcharts.Chart({
     chart: { 
       zoomType: 'xy',
-      renderTo: 'stromwerte_chart',
-      events: {
+      renderTo: 'stromwerte_chart'
+      /* , 
+         events: {
           load: function(event) {
             // noch umständlich, erst alle series verstecken
            this.series.forEach(function(d,i){if( d.options.id<100 )d.hide()})
           }
-        }
+        } */
      },
     title: { text: 'Zählerwerte' },
     xAxis: { type: 'datetime' },
@@ -58,13 +59,11 @@ $(function () {
       y: 20,
       floating: true,
       backgroundColor: '#FFFFFF'
-      },
+            }
   });
   
     // activate the button
-    $('.button').click(function() {
-      // Bezug zur Chart
-      var chart = $('#stromwerte_chart').highcharts();
+  $('.button').click(function() {
       // zweidimensionales Daten Array für series
       var data_array = new Array();
       var verbrauch_array = new Array();
@@ -85,7 +84,7 @@ $(function () {
       var strompreis = 0.26;
       //$(this).attr('disabled', true);
       
-	$(this).hide();
+//	$(this).hide();
 	    
       var Faktor; 
       
