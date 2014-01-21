@@ -41,9 +41,11 @@ $(function () {
     ],
     tooltip: {
       formatter: function () { 
-        var x = 'KWh';
-        if(this.series.name == 'Kosten') { x = '€'};
-        if(this.series.name == 'Verbrauch') { x = 'KWh'};
+                   var x = 'KWh';
+        //if(this.series.name == 'Kosten') { x = '€ '};
+        //if(this.series.name == 'Verbrauch') { x = 'KWh'};
+        if(this.series.name.match(/Kosten/)) { x = '€ '};
+        if(this.series.name.match(/Verbrauch/)) { x = 'KWh'};
         return '<b>' + this.series.name + '</b>: ' + Highcharts.numberFormat(this.y, 1) + ' ' + x +
         
          ' am ' + Highcharts.dateFormat("%d.%m.%Y", this.x)
@@ -150,15 +152,15 @@ $(function () {
         data: data_array.sort()
       });
        chart.addSeries({
-         // name: 'Verbrauch '+kurzbezeichnung,
-         name: 'Verbrauch',
+         name: 'Verbrauch ' + kurzbezeichnung,
+         //name: 'Verbrauch',
          type: 'column',
          yAxis: 1,
          data: verbrauch_array.sort()
        });
       chart.addSeries({
-        // name: 'Kosten '+kurzbezeichnung,
-        name: 'Kosten',
+        name: 'Kosten ' + kurzbezeichnung,
+        // name: 'Kosten',
         type: 'column',
         yAxis: 2,
         data: kosten_array.sort()
