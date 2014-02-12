@@ -69,16 +69,6 @@ GIT
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
 
-GIT
-  remote: git://github.com/rails/sass-rails.git
-  revision: 0e2c205ec8b131dff103c13de2f9cd7f4938b18f
-  branch: 3-2-stable
-  specs:
-    sass-rails (3.2.6)
-      railties (~> 3.2.0)
-      sass (>= 3.1.10)
-      tilt (~> 1.3)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -155,7 +145,11 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rubyzip (0.9.9)
-    sass (3.2.8)
+    sass (3.2.13)
+    sass-rails (3.2.6)
+      railties (~> 3.2.0)
+      sass (>= 3.1.10)
+      tilt (~> 1.3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -202,7 +196,7 @@ DEPENDENCIES
   mysql2
   pg
   rails!
-  sass-rails!
+  sass-rails
   therubyracer
   thin
   uglifier (>= 1.0.3)
