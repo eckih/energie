@@ -56,4 +56,4 @@ gem 'therubyracer'
 gem 'best_in_place'
 gem 'highcharts'
 #
-#
+gem "active_model_serializers"

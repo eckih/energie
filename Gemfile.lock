@@ -72,6 +72,8 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.0)
     addressable (2.3.4)
     best_in_place (2.1.0)
       jquery-rails
@@ -188,6 +190,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   arel!
   best_in_place
   better_errors
