@@ -1,16 +1,8 @@
 $(document).ready(function() {
-  console.log("js_zaehlers="+js_zaehlers);
+  //console.log("js_zaehlers="+js_zaehlers);
 
-  Highcharts.setOptions({
-    lang: {
-      decimalPoint: ',',
-      thousandsSep: '.',
-      numericSymbols: null,
-    }
-  });
-  
 
-  chart = new Highcharts.Chart({
+  zaehler_chart = new Highcharts.Chart({
     chart: { 
       zoomType: 'xy',
       renderTo: 'zaehler_chart'
@@ -51,24 +43,30 @@ $(document).ready(function() {
       y: 20,
       floating: true,
       backgroundColor: '#FFFFFF'
-            },
-    series:[
-      <%#
-        # @zaehlers = Zaehler.all
-        if !@zaehlers.nil?
-          @zaehlers.each do |zaehler| 
-        end
-           %>
-      {
-      name: '<%#= zaehler.kurzbezeichnung %>',
-     } ,
-    <%# end %>
-    ]
+            }
   });
   
+
+  Highcharts.setOptions({
+    lang: {
+      decimalPoint: ',',
+      thousandsSep: '.',
+      numericSymbols: null,
+    }
+  });
   
-  
-  
+$.getJSON('zaehlers', function (json){
+  $.each(json.zaehlers, function (i,zaehler){
+    //console.log("json="+$.parseJSON(JSON.stringify(zaehler)));A
+    console.log("i="+i+" zaehler="+zaehler);
+  zaehler_chart.addSeries({
+          id: zaehler.id,
+          name: zaehler.kurzbezeichnung,
+          type: 'column',
+          data: zaehler.werte.stand
+        });
+  })
+});
   /* alt */
 
   chart = new Highcharts.Chart({

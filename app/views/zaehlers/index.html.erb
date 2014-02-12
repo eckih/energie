@@ -1,8 +1,8 @@
-<% title "Liste der Stromzähler v0.8.5" %>
+<% title "Liste der Stromzähler v0.8.7" %>
 <%#= javascript_include_tag params[:controller] if Energie::Application.assets.find_asset("#{params[:controller]}.js")  %>
 
 <% content_for :head do %> 
-  <%= javascript_tag "var js_zaehlers = #{@zaehlers.to_json};" %>
+  <%#= javascript_tag "var js_zaehlers = #{@zaehlers.to_json};" %>
   <%= javascript_include_tag "zaehlers" %>
 <% end %>
 <%# render :partial => "zaehlers"  %>
