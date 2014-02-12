@@ -1,5 +1,7 @@
-<%= javascript_include_tag params[:controller] %>
-<% title "Liste der Stromzähler v0.8.3" %>
+<% title "Liste der Stromzähler v0.8.4" %>
+<%#= javascript_include_tag params[:controller] if Energie::Application.assets.find_asset("#{params[:controller]}.js")  %>
+<%= javascript_include_tag "zaehlers" %>
+<%# render :partial => "zaehlers"  %>
 <div id="zaehler_chart" style="width: 1000px; height: 600px;"></div>
 
 <div id="stromwerte_chart" style="width: 1000px; height: 600px;"></div>

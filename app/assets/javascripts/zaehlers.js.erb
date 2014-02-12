@@ -52,11 +52,13 @@ $(document).ready(function() {
       backgroundColor: '#FFFFFF'
             },
     series:[
-    <%# @zaehlers.each do |zaehler| %>
+      <% @zaehlers = Zaehler.all
+           @zaehlers.each do |zaehler| 
+           %>
       {
-      name: <%#= zaehler.kurzbezeichnung %>'name',
+      name: '<%= zaehler.kurzbezeichnung %>',
      } ,
-    <%# end %>
+    <% end %>
     ]
   });
   
