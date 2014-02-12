@@ -52,8 +52,11 @@ $(document).ready(function() {
       backgroundColor: '#FFFFFF'
             },
     series:[
-      <% @zaehlers = Zaehler.all
-           @zaehlers.each do |zaehler| 
+      <%
+        # @zaehlers = Zaehler.all
+        if !@zaehlers.nil?
+          @zaehlers.each do |zaehler| 
+        end
            %>
       {
       name: '<%= zaehler.kurzbezeichnung %>',
