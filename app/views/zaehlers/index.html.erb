@@ -1,5 +1,6 @@
-<% title "Liste der Stromzähler v0.8.2" %>
-<%= button_tag "Test", :id => "Test" %>
+<%= javascript_include_tag params[:controller] %>
+<% title "Liste der Stromzähler v0.8.3" %>
+<div id="zaehler_chart" style="width: 1000px; height: 600px;"></div>
 
 <div id="stromwerte_chart" style="width: 1000px; height: 600px;"></div>
 <p id="notice"><%= notice %></p>
