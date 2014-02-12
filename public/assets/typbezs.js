@@ -1,0 +1,1 @@
+(function(){jQuery(function(){return console.log("typbez.js.coffee")})}).call(this);

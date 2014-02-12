@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  console.log("js_zaehlers="+js_zaehlers);
 
   Highcharts.setOptions({
     lang: {
@@ -52,16 +53,16 @@ $(document).ready(function() {
       backgroundColor: '#FFFFFF'
             },
     series:[
-      <%
+      <%#
         # @zaehlers = Zaehler.all
         if !@zaehlers.nil?
           @zaehlers.each do |zaehler| 
         end
            %>
       {
-      name: '<%= zaehler.kurzbezeichnung %>',
+      name: '<%#= zaehler.kurzbezeichnung %>',
      } ,
-    <% end %>
+    <%# end %>
     ]
   });
   

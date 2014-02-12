@@ -1,0 +1,1 @@
+(function(){jQuery(function(){return console.log("typen.js.coffee")})}).call(this);
