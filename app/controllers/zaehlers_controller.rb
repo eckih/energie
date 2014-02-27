@@ -122,9 +122,12 @@ class ZaehlersController < ApplicationController
     verbrauch_berechnen(zaehler)
 
     @werte = Wert.where("zaehler_id = ?", zaehler.id)
-    a_werte = @werte.select('stand AS y, unix_timestamp(datum)*1000 AS x')
+    a_werte = @werte.select('stand AS y, datum AS x')
+    # a_werte = @werte.select('stand AS y, unix_timestamp(datum)*1000 AS x')
+
 
     a_werte.each do |wert|
+      wert.x = wert.x.strftime("%Q").to_i
       #log("debug","x=#{wert.x} y=#{wert.y}")
     end
     return a_werte
