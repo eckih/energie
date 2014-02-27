@@ -27,6 +27,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'mysql2'
+  gem 'therubyracer'
 end
 
 group :production do
@@ -52,7 +53,7 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 #gem 'execjs'
-gem 'therubyracer'
+
 gem 'best_in_place'
 gem 'highcharts'
 #
