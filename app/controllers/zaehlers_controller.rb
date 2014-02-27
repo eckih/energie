@@ -127,7 +127,7 @@ class ZaehlersController < ApplicationController
 
 
     a_werte.each do |wert|
-      wert.x = wert.x.strftime("%Q").to_i
+      wert.x = wert.x.to_date.strftime("%Q").to_i
       #log("debug","x=#{wert.x} y=#{wert.y}")
     end
     return a_werte
