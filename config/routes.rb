@@ -17,7 +17,7 @@ Energie::Application.routes.draw do
 
   resources :zaehlers do
     collection do
-      get 'jsontest'
+      get 'normiertewerte'
     end
   end
 

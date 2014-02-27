@@ -1,1 +1,0 @@
-(function(){jQuery(function(){return console.log("werte.js.coffee"),$(".best_in_place").best_in_place()})}).call(this);

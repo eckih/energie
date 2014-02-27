@@ -1,4 +1,4 @@
-<% title "Liste der Stromzähler v0.8.7.1" %>
+<% title "Liste der Stromzähler v0.8.8.0" %>
 <%#= javascript_include_tag params[:controller] if Energie::Application.assets.find_asset("#{params[:controller]}.js")  %>
 
 <% content_for :head do %> 
@@ -8,7 +8,9 @@
 <% end %>
 <%# render :partial => "zaehlers"  %>
 <div id="zaehler_chart" style="width: 1000px; height: 600px;"></div>
-
+<%= button_to_function "Verbrauch", "button_addSerie()",  :id => "button_addSerie" %>
+<%= button_to_function "stappeln", "button_stacking()",  :id => "button_stacking" %>
+<%= button_to_function "Prozent", "button_percent()",  :id => "button_percent" %>
 <div id="stromwerte_chart" style="width: 1000px; height: 600px;"></div>
 <p id="notice"><%= notice %></p>
 <table>

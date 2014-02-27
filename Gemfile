@@ -56,4 +56,4 @@ gem 'therubyracer'
 gem 'best_in_place'
 gem 'highcharts'
 #
-gem "active_model_serializers"
+gem "active_model_serializers" #, '>= 0.9.0' #, :git => 'git://github.com/rails-api/active_model_serializers.git'
