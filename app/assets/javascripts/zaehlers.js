@@ -25,7 +25,7 @@ function button_stacking(){
   })
 }
 
-/* stacking */
+/* percent */
 function button_percent(){
   console.log("click button_percent");
   var zaehler_chart = $('#zaehler_chart').highcharts();

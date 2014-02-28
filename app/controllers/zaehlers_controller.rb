@@ -20,9 +20,8 @@ class ZaehlersController < ApplicationController
       a_series << { "name" => zaehler.kurzbezeichnung, "data" => a_werte, "id" => zaehler.id }
       log("debug","#{a_werte}")
     end
-    # render json: {:name => a_zaehler, :data => a_werte}, root: false  # liefert wg. serializer auch Werte
-    # render json: {:serie => a_serie, root: false }
     render json: a_series.to_json
+
   end
 
   # GET /zaehlers/1
@@ -125,9 +124,9 @@ class ZaehlersController < ApplicationController
     a_werte = @werte.select('stand AS y, datum AS x')
     # a_werte = @werte.select('stand AS y, unix_timestamp(datum)*1000 AS x')
 
-
     a_werte.each do |wert|
       wert.x = wert.x.to_date.strftime("%Q").to_i
+      wert.y = wert.y.to_f
       #log("debug","x=#{wert.x} y=#{wert.y}")
     end
     return a_werte
