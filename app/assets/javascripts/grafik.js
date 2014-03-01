@@ -7,33 +7,33 @@ function log_object(object){
   console.log("object="+output);
 }
 
-/* stacking */
-function button_stacking(){
-  console.log("click button_stacking");
+/* no stacking */
+function button_nostacking(){
+  console.log("click button_nostacking");
   var zaehler_chart = $('#zaehler_chart').highcharts();
-  /*
-     for( var i = 0; i < zaehler_chart.series.length ; i++){
-     zaehler_chart.series[i].update({ stacking: 'normal'   }); 
-     }
-     */
 
+  delete zaehler_chart.yAxis[0].usePercentage;
   // Linien müssen noch aussortiert werden
   $(zaehler_chart.series).each(function(k,serie){
     if( this.visible && $.inArray(serie.name, visibleSeriesIndex) < 0  ) {
-      this.update({ stacking: 'normal' }); 
+      console.log("button_stacking(): serie.name="+serie.name+ "serie.index="+serie.index);
+      zaehler_chart.series[serie.index].update({ stacking: 0 },true); 
     }
   })
+  //zaehler_chart.redraw();
 }
 
 /* percent */
 function button_percent(){
   console.log("click button_percent");
   var zaehler_chart = $('#zaehler_chart').highcharts();
+  delete zaehler_chart.yAxis[0].usePercentage;
   $(zaehler_chart.series).each(function(k,serie){
     if( this.visible && $.inArray(serie.name, visibleSeriesIndex) < 0  ) {
-      this.update({ stacking: 'percent' }); 
+      this.update({ stacking: 'percent' },false); 
     }
   })
+  zaehler_chart.redraw();
 }
 
 /* Verbrauch */
@@ -67,8 +67,8 @@ function button_addSerie(){
         data: data,
         yAxis: 1,
         type: 'column',
-        stack: 1
-        //stacking: 'normal'
+        stack: 1,
+        stacking: 'normal'
       });
     }
   });
