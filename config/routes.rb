@@ -18,6 +18,7 @@ Energie::Application.routes.draw do
   resources :zaehlers do
     collection do
       get 'normiertewerte'
+      get 'grafik'
     end
   end
 
@@ -72,7 +73,7 @@ Energie::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'zaehlers#index'
+  root :to => 'zaehlers#grafik'
 
   # See how all your routes lay out with "rake routes"
 
