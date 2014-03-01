@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+<% title "Stromzählerstände v0.8.9.0" %>
+<% content_for :head do %> 
+  <%= javascript_include_tag "grafik" %>
+<% end %>
+<div id="zaehler_chart" style="width: 1000px; height: 600px;"></div>
+<%= button_to_function "Verbrauch", "button_addSerie()",  :id => "button_addSerie" %>
+<%= button_to_function "stappeln", "button_stacking()",  :id => "button_stacking" %>
+<%= button_to_function "Prozent", "button_percent()",  :id => "button_percent" %>
