@@ -37,7 +37,7 @@ function button_percent(){
 }
 
 /* Verbrauch */
-function button_addSerie(){
+function button_verbrauch(){
   var zaehler_chart = $('#zaehler_chart').highcharts();
 
   // über alle Series iterieren
@@ -93,11 +93,11 @@ $(document).ready(function() {
 } 
 ],
 tooltip: {
-  pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} kWh</b> ({point.percentage:.0f}%)<br/>'
+  pointFormat: '<span style="color:{series.color}">{series.id}: {series.name}</span>: <b>{point.y} kWh</b> ({point.percentage:.0f}%)<br/>'
   /*
      formatter: function () { 
      var x = 'KWh';
-     return '<b>' + this.series.name + '</b>: ' + Highcharts.numberFormat(this.y, 1) + ' ' + x + ' am ' + Highcharts.dateFormat("%d.%m.%Y", this.x) + " (" + ({this.percentage:.0f}%) + "%)" ;
+     return '<b>' + this.series.id + ':' + this.series.name + '</b>: ' + Highcharts.numberFormat(this.y, 1) + ' ' + x + ' am ' + Highcharts.dateFormat("%d.%m.%Y", this.x) + " (" + ({this.percentage:.0f}%) + "%)" ;
      }
      */
 },
@@ -106,10 +106,11 @@ tooltip: {
 
 // Alle Zähler auf einmal per Ajax von method index holen
 $.getJSON('zaehlers/normiertewerte', function (json){
-  //$.getJSON('zaehlers', function (json){
+  
   options.series = json;  // Daten setzen
+
   var zaehler_chart = new Highcharts.Chart(options);
-  var series = zaehler_chart.series[0];
+  //var series = zaehler_chart.series[0];
   // Alle Serien verstecken
   $(zaehler_chart.series).each(function(){
     this.setVisible(false, false);

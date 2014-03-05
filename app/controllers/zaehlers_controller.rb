@@ -14,11 +14,13 @@ class ZaehlersController < ApplicationController
   def normiertewerte
     @zaehlers = Zaehler.all
     a_werte = Array.new
+    a_werte_normiert = Array.new
     a_series = Array.new
     @zaehlers.each do |zaehler|
-      a_werte = werte_normieren(zaehler)
-      a_series << { "name" => zaehler.kurzbezeichnung, "data" => a_werte, "id" => zaehler.id }
-      log("debug","#{a_werte}")
+      log("debug","Zähler id=#{zaehler.id} kurzbez=#{zaehler.kurzbezeichnung}")
+      a_werte_normiert = werte_normieren(zaehler)
+      # a_series << { "name" => zaehler.kurzbezeichnung, "data" => a_werte.sort_by{|x| x.x }, "id" => zaehler.id.to_s }
+      a_series << { "name" => zaehler.kurzbezeichnung, "data" => a_werte_normiert.sort_by{|x| x.x }, "id" => zaehler.id.to_s }
     end
     render json: a_series.to_json
 
@@ -118,18 +120,85 @@ class ZaehlersController < ApplicationController
 
   private
   def werte_normieren(zaehler)
-    verbrauch_berechnen(zaehler)
+    #verbrauch_berechnen(zaehler)
+    a_werte_anhaengen = Array.new
 
+    d_letzter_naechster = "2000-01-01".to_date
+    a_werte_normiert = Array.new
     @werte = Wert.where("zaehler_id = ?", zaehler.id)
-    a_werte = @werte.select('stand AS y, datum AS x')
+
+    # x = highchart Datum in millisecunden. y = Wert
+    #a_werte = @werte.select('stand AS y, datum AS x')
+    a_werte_normiert = @werte.select('stand AS y, datum AS x')
+    #log("debug","#{a_werte_normiert.typeof}")
     # a_werte = @werte.select('stand AS y, unix_timestamp(datum)*1000 AS x')
 
-    a_werte.each do |wert|
-      wert.x = wert.x.to_date.strftime("%Q").to_i
-      wert.y = wert.y.to_f
-      #log("debug","x=#{wert.x} y=#{wert.y}")
+    last_wert = a_werte_normiert[0].dup
+    a_werte_normiert.each do |wert|
+      # log("debug","wert.x=#{wert.x} last_wert.x=#{last_wert.x}");
+      diff_X = (wert.x - last_wert.x).to_i # Differenz Tage zwischen zwei Werten
+      if diff_X != 0
+        diff_Y = wert.y - last_wert.y # Differenz Zählerstand zwischen zwei Werten
+        diff_y = diff_Y / diff_X      # Differenz Zählerstand pro Tag
+        monatserster = wert.x.at_beginning_of_month # Datum des Ersten im Monat
+        next_monatserster = wert.x.next_month.at_beginning_of_month # Datum des Ersten im nächsten Monat
+        diff_x_zum_monatsersten = wert.x - monatserster # Tage vom Wert zum ersten im Monat
+        diff_y_zum_monatsersten = diff_x_zum_monatsersten * diff_y # Wert vom Ersten im Monat
+        y_am_monatsersten = ( wert.y - diff_y_zum_monatsersten )
+      end
+      #if diff_X > 50
+      #log("debug","x=#{wert.x} y=#{wert.y} last_x=#{last_wert.x} last_y=#{last_wert.y} diff_X=#{diff_X} diff_Y=#{diff_Y} diff_y=#{diff_y} monatserster=#{monatserster} next_monatserster=#{next_monatserster} diff_x_zum_monatsersten=#{diff_x_zum_monatsersten} diff_y_zum_monatsersten=#{diff_y_zum_monatsersten} y_am_monatsersten=#{y_am_monatsersten} ")
+
+      #a_werte_anhaengen << set_wert( monatserster, y_am_monatsersten )
+      #end
+      last_wert = wert.dup
+      #wert.x = wert.x.to_date.strftime("%Q").to_i
+      #wert.y = wert.y.to_f
+      wert.y = ("%.1f"%(wert.y - diff_y_zum_monatsersten)).to_f if !diff_y_zum_monatsersten.nil?
+      if diff_x_zum_monatsersten.nil?
+        wert.x = wert.x.to_date.strftime("%Q").to_i 
+      else
+        d_naechster = wert.x.at_beginning_of_month
+        #log("debug","check(0, wert.x - diff_x_zum_monatsersten=#{wert.x - diff_x_zum_monatsersten},wert.y=#{wert.y},last_wert.x=#{last_wert.x},last_wert.y=#{last_wert.y}, d_letzter_naechster=#{d_letzter_naechster},diff_y=#{"%.f"%diff_y})")
+        check(0, wert.x - diff_x_zum_monatsersten,wert.y,last_wert.x,last_wert.y, d_letzter_naechster,diff_y, a_werte_anhaengen )
+        d_letzter_naechster = d_naechster
+        wert.x = (wert.x - diff_x_zum_monatsersten).to_date.strftime("%Q").to_i 
+      end
+
     end
-    return a_werte
+    a_werte_anhaengen.each do |w|
+      log("debug", "w.x=#{w.x} w.y=#{w.y}")
+      a_werte_normiert << w
+    end
+    #a_werte_normiert << a_werte_anhaengen
+    return a_werte_normiert
+  end
+
+  def check(i,x,y,last_x, last_y,d_letzter_naechster,diff_y, a_werte_anhaengen )
+    #log("debug","def check(i=#{i},x=#{x},y=#{y},last_x=#{last_x}, last_y=#{last_y},d_letzter_naechster=#{d_letzter_naechster},diff_y=#{diff_y})")
+    i += 1
+    prev_erster = x.prev_month.at_beginning_of_month # erster der vorherigen Monats
+    dy = last_y - y
+    dx = ( last_x - x ).to_i
+    dxy = dy / dx
+    y_neu = y-(dxy * ( x - prev_erster))
+    if (((d_letzter_naechster < prev_erster) && (i < 9) && (d_letzter_naechster != "2000-01-01".to_date)) ||((d_letzter_naechster == prev_erster) && (i > 1)))
+      #log("debug","+++Zaehler d_letzter_naechster=#{d_letzter_naechster} prev_prev_prev_erster=#{prev_erster} y=#{y} last_y=#{last_y} dy=#{dy} dx=#{dx} dy/dx=#{dxy} y_neu=#{y_neu} y-(dxy * ( x - prev_erster))= #{y-(dxy * ( x - prev_erster))} ")
+      if (i > 1)
+        log("debug", "i=#{i} x=#{x} y=#{y} d_letzter_naechster=#{d_letzter_naechster} prev_erster=#{prev_erster}")
+        set_wert(x,"%.1f"%y,a_werte_anhaengen)
+      end
+      check(i,prev_erster,y_neu,x, y,d_letzter_naechster,diff_y, a_werte_anhaengen )
+    end
+  end
+
+  def set_wert(x,y,a_werte_anhaengen)
+    log("debug","set_wert(#{x}, #{y})");
+    neuer_wert = Wert.select('stand AS y, datum AS x').limit(1).dup
+    neuer_wert[0].x = x.to_date.strftime("%Q").to_i
+    neuer_wert[0].y = y.to_f 
+    log("debug","set_werte: neuer_wert[0].inspect=#{neuer_wert[0].inspect}");
+    a_werte_anhaengen << neuer_wert[0]
   end
 
   def verbrauch_berechnen(zaehler)

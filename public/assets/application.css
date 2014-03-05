@@ -1,1 +1,180 @@
-html,body{background-color:#4B7399;font-family:Verdana, Helvetica, Arial;font-size:14px}a img{border:none}a{color:#0000FF}.clear{clear:both;height:0;overflow:hidden}#container{margin:0 auto;background-color:#FFF;padding:20px 40px;border:solid 1px black;margin-top:20px}#flash_notice,#flash_error,#flash_alert{padding:5px 8px;margin:10px 0}#flash_notice{background-color:#CFC;border:solid 1px #6C6}#flash_error,#flash_alert{background-color:#FCC;border:solid 1px #C66}.fieldWithErrors{display:inline}.error_messages{width:400px;border:2px solid #CF0000;padding:0px;padding-bottom:12px;margin-bottom:20px;background-color:#f0f0f0;font-size:12px}.error_messages h2{text-align:left;font-weight:bold;padding:5px 10px;font-size:12px;margin:0;background-color:#c00;color:#fff}.error_messages p{margin:8px 10px}.error_messages ul{margin:0}body{background-color:#fff;color:#333;font-family:verdana, arial, helvetica, sans-serif;font-size:13px;line-height:18px}p,ol,ul,td{font-family:verdana, arial, helvetica, sans-serif;font-size:13px;line-height:18px}pre{background-color:#eee;padding:10px;font-size:11px}a{color:#000}a:visited{color:#666}a:hover{color:#fff;background-color:#000}div.field,div.actions{margin-bottom:10px}#notice{color:green}.field_with_errors{padding:2px;background-color:red;display:table}#error_explanation{width:450px;border:2px solid red;padding:7px;padding-bottom:0;margin-bottom:20px;background-color:#f0f0f0}#error_explanation h2{text-align:left;font-weight:bold;padding:5px 5px 5px 15px;font-size:12px;margin:-7px;margin-bottom:0px;background-color:#c00;color:#fff}#error_explanation ul li{font-size:12px;list-style:square}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+ */
+
+/* line 1, ../../app/assets/stylesheets/application.css.scss */
+html, body {
+  background-color: #4B7399;
+  font-family: Verdana, Helvetica, Arial;
+  font-size: 14px;
+}
+
+/* line 7, ../../app/assets/stylesheets/application.css.scss */
+a img {
+  border: none;
+}
+
+/* line 11, ../../app/assets/stylesheets/application.css.scss */
+a {
+  color: #0000FF;
+}
+
+/* line 15, ../../app/assets/stylesheets/application.css.scss */
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+/* line 21, ../../app/assets/stylesheets/application.css.scss */
+#container {
+  margin: 0 auto;
+  background-color: #FFF;
+  padding: 20px 40px;
+  border: solid 1px black;
+  margin-top: 20px;
+}
+
+/* line 29, ../../app/assets/stylesheets/application.css.scss */
+#flash_notice, #flash_error, #flash_alert {
+  padding: 5px 8px;
+  margin: 10px 0;
+}
+
+/* line 34, ../../app/assets/stylesheets/application.css.scss */
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+/* line 39, ../../app/assets/stylesheets/application.css.scss */
+#flash_error, #flash_alert {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+
+/* line 44, ../../app/assets/stylesheets/application.css.scss */
+.fieldWithErrors {
+  display: inline;
+}
+
+/* line 48, ../../app/assets/stylesheets/application.css.scss */
+.error_messages {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  font-size: 12px;
+}
+
+/* line 58, ../../app/assets/stylesheets/application.css.scss */
+.error_messages h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+
+/* line 68, ../../app/assets/stylesheets/application.css.scss */
+.error_messages p {
+  margin: 8px 10px;
+}
+
+/* line 72, ../../app/assets/stylesheets/application.css.scss */
+.error_messages ul {
+  margin: 0;
+}
+/* line 1, ../../app/assets/stylesheets/scaffolds.css.scss */
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* line 9, ../../app/assets/stylesheets/scaffolds.css.scss */
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* line 15, ../../app/assets/stylesheets/scaffolds.css.scss */
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+/* line 21, ../../app/assets/stylesheets/scaffolds.css.scss */
+a {
+  color: #000;
+}
+/* line 23, ../../app/assets/stylesheets/scaffolds.css.scss */
+a:visited {
+  color: #666;
+}
+/* line 26, ../../app/assets/stylesheets/scaffolds.css.scss */
+a:hover {
+  color: #fff;
+  background-color: #000;
+}
+
+/* line 33, ../../app/assets/stylesheets/scaffolds.css.scss */
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+/* line 38, ../../app/assets/stylesheets/scaffolds.css.scss */
+#notice {
+  color: green;
+}
+
+/* line 42, ../../app/assets/stylesheets/scaffolds.css.scss */
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+/* line 48, ../../app/assets/stylesheets/scaffolds.css.scss */
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+/* line 55, ../../app/assets/stylesheets/scaffolds.css.scss */
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+/* line 65, ../../app/assets/stylesheets/scaffolds.css.scss */
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
