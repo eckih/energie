@@ -20,17 +20,16 @@ class ZaehlersController < ApplicationController
       log("debug","Zähler id=#{zaehler.id} kurzbez=#{zaehler.kurzbezeichnung}")
       a_werte_normiert = werte_normieren(zaehler)
       # a_series << { "name" => zaehler.kurzbezeichnung, "data" => a_werte.sort_by{|x| x.x }, "id" => zaehler.id.to_s }
-      a_series << { "name" => zaehler.kurzbezeichnung, "data" => a_werte_normiert.sort_by{|x| x.x }, "id" => zaehler.id.to_s }
+      a_series << { "name" => zaehler.kurzbezeichnung, "id" => zaehler.id , "data" => a_werte_normiert.sort_by{|x| x.x }}
     end
     render json: a_series.to_json
-
   end
 
   # GET /zaehlers/1
   # GET /zaehlers/1.json
   def show
     @zaehler = Zaehler.find(params[:id])
-    @typenbez = Typbez.all
+    @typenbez = Typbez.all 
     @werte = Wert.where("zaehler_id = ?", params[:id])
 
     respond_to do |format|
@@ -120,7 +119,6 @@ class ZaehlersController < ApplicationController
 
   private
   def werte_normieren(zaehler)
-    #verbrauch_berechnen(zaehler)
     a_werte_anhaengen = Array.new
 
     d_letzter_naechster = "2000-01-01".to_date
@@ -162,7 +160,7 @@ class ZaehlersController < ApplicationController
         #log("debug","check(0, wert.x - diff_x_zum_monatsersten=#{wert.x - diff_x_zum_monatsersten},wert.y=#{wert.y},last_wert.x=#{last_wert.x},last_wert.y=#{last_wert.y}, d_letzter_naechster=#{d_letzter_naechster},diff_y=#{"%.f"%diff_y})")
         check(0, wert.x - diff_x_zum_monatsersten,wert.y,last_wert.x,last_wert.y, d_letzter_naechster,diff_y, a_werte_anhaengen )
         d_letzter_naechster = d_naechster
-        wert.x = (wert.x - diff_x_zum_monatsersten).to_date.strftime("%Q").to_i 
+        wert.x = (wert.x - diff_x_zum_monatsersten).to_date.strftime("%Q").to_i
       end
 
     end
@@ -199,58 +197,5 @@ class ZaehlersController < ApplicationController
     neuer_wert[0].y = y.to_f 
     log("debug","set_werte: neuer_wert[0].inspect=#{neuer_wert[0].inspect}");
     a_werte_anhaengen << neuer_wert[0]
-  end
-
-  def verbrauch_berechnen(zaehler)
-    i = 0
-    d_letzter_naechster = 0
-    letzter_diff_stand = 0
-    letzter_stand = zaehler.werte[0].stand
-    letztes_datum = zaehler.werte[0].datum
-    ld("Id=#{zaehler.id} zaehler.werte.class=#{zaehler.werte.class} zaehler.werte.count=#{zaehler.werte.count}")
-    zaehler.werte.each do |wert|
-      ###wert.x = wert.datum.strftime("%Q")
-
-      diff_tage = wert.datum - letztes_datum
-      diff_stand = wert.stand - letzter_stand
-      # negative stand Werte nicht anzeigen
-      if diff_stand < 0
-        diff_stand = 0
-      elsif diff_stand == 0
-
-        # zu große Werte nicht anzeigen, da hier etwas nicht stimmen kann
-      elsif (diff_stand * 10) > letzter_diff_stand
-        ld("diff_stand=#{diff_stand} letzter_diff_stand=#{letzter_diff_stand}")
-        #diff_stand = 0
-      end
-
-      if diff_tage > 0
-        ###wert.y = ("%.1f"%((diff_stand / diff_tage)*30)).to_f
-      else
-        ###wert.y = 0
-      end
-      d_naechster = wert.datum.next_month.at_beginning_of_month
-      check_wert(i,zaehler,wert.stand,wert.datum,d_letzter_naechster)
-      d_letzter_naechster = d_naechster
-      letztes_datum = wert.datum
-      letzter_stand = wert.stand
-      letzter_diff_stand = diff_stand
-    end
-  end
-
-  def check_wert(i,zaehler,s,d,d_letzter_naechster)
-    i+= 1
-    d_erster = d.at_beginning_of_month
-    d_naechster = d.next_month.at_beginning_of_month
-    ##log("debug","Zaehler Id:#{zaehler.id} i=#{i} s=#{s} d=#{d} d_letzter_naechster=#{d_letzter_naechster} d_erster=#{d_erster} d_naechster=#{d_naechster}")
-    if ((d_letzter_naechster != d_erster) && (i < 7))
-      then
-      #w = Wert.new
-      #w.stand = s
-      #w.datum = d
-      # zaehler.werte << w
-      ##log("debug","+++Zaehler Id:#{zaehler.id} i=#{i} s=#{s} d=#{d} d_letzter_naechster=#{d_letzter_naechster} d_erster=#{d_erster} d_naechster=#{d_naechster}")
-      check_wert(i,zaehler,s,d.prev_month.at_beginning_of_month,d_letzter_naechster)
-    end
   end
 end
