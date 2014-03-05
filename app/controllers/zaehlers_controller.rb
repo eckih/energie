@@ -21,7 +21,7 @@ class ZaehlersController < ApplicationController
       a_werte_normiert = werte_normieren(zaehler)
       # a_series << { "name" => zaehler.kurzbezeichnung, "data" => a_werte.sort_by{|x| x.x }, "id" => zaehler.id.to_s }
       pointRange = 24 * 3600 * 1000 * 30
-      a_series << { "name" => zaehler.kurzbezeichnung, "id" => zaehler.id.to_s , "data" => a_werte_normiert.sort_by{|x| x.x }, "pointRange" => pointRange.to_s }
+      a_series << { "name" => zaehler.kurzbezeichnung, "id" => zaehler.id.to_i , "data" => a_werte_normiert.sort_by{|x| x.x }, "pointRange" => pointRange.to_s.to_i }
     end
     render json: a_series.to_json
   end
