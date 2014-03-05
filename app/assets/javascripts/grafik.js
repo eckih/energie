@@ -1,69 +1,69 @@
 
 function log_object(object){
-  var output = '';
-  for (var property in object) {
-    output += property + ': ' + object[property]+'; ';
-  }
-  console.log("object="+output);
+var output = '';
+for (var property in object) {
+  output += property + ': ' + object[property]+'; ';
+}
+console.log("object="+output);
 }
 
 /* no stacking */
 function button_nostacking(){
-  console.log("click button_nostacking");
-  var zaehler_chart = $('#zaehler_chart').highcharts();
+console.log("click button_nostacking");
+var zaehler_chart = $('#zaehler_chart').highcharts();
 
-  delete zaehler_chart.yAxis[0].usePercentage;
-  // Linien müssen noch aussortiert werden
-  $(zaehler_chart.series).each(function(k,serie){
-    if( this.visible && $.inArray(serie.name, visibleSeriesIndex) < 0  ) {
-      console.log("button_stacking(): serie.name="+serie.name+ "serie.index="+serie.index);
-      zaehler_chart.series[serie.index].update({ stacking: 0 },true); 
-    }
-  })
-  //zaehler_chart.redraw();
+delete zaehler_chart.yAxis[0].usePercentage;
+// Linien müssen noch aussortiert werden
+$(zaehler_chart.series).each(function(k,serie){
+  if( this.visible && $.inArray(serie.name, visibleSeriesIndex) < 0  ) {
+    console.log("button_stacking(): serie.name="+serie.name+ "serie.index="+serie.index);
+    zaehler_chart.series[serie.index].update({ stacking: 0 },true); 
+  }
+})
+//zaehler_chart.redraw();
 }
 
 /* percent */
 function button_percent(){
-  console.log("click button_percent");
-  var zaehler_chart = $('#zaehler_chart').highcharts();
-  delete zaehler_chart.yAxis[0].usePercentage;
-  $(zaehler_chart.series).each(function(k,serie){
-    if( this.visible && $.inArray(serie.name, visibleSeriesIndex) < 0  ) {
-      this.update({ stacking: 'percent' },false); 
-    }
-  })
-  zaehler_chart.redraw();
+console.log("click button_percent");
+var zaehler_chart = $('#zaehler_chart').highcharts();
+delete zaehler_chart.yAxis[0].usePercentage;
+$(zaehler_chart.series).each(function(k,serie){
+  if( this.visible && $.inArray(serie.name, visibleSeriesIndex) < 0  ) {
+    this.update({ stacking: 'percent' },false); 
+  }
+})
+zaehler_chart.redraw();
 }
 
 /* Verbrauch */
 function button_verbrauch(){
-  var zaehler_chart = $('#zaehler_chart').highcharts();
+var zaehler_chart = $('#zaehler_chart').highcharts();
 
-  // über alle Series iterieren
-  $(zaehler_chart.series).each(function(k,serie){
-    // Wenn Serie sichtbar und nicht schon Balkengrafik (also Zählerwerte) und nicht in visibleSeriesIndex (also schon einmal Verbrauch berechnet)
-    if( this.visible && this.type != 'column' && $.inArray(serie.name, visibleSeriesIndex) < 0 ) {
+// über alle Series iterieren
+$(zaehler_chart.series).each(function(k,serie){
+  // Wenn Serie sichtbar und nicht schon Balkengrafik (also Zählerwerte) und nicht in visibleSeriesIndex (also schon einmal Verbrauch berechnet)
+  if( this.visible && this.type != 'column' && $.inArray(serie.name, visibleSeriesIndex) < 0 ) {
 
-      // im visibleSeriesIndex merken, damit Verbrauch nicht nochmal berechnet wird
-      visibleSeriesIndex.push(serie.name);
-      //console.log("berechne: "+serie.name);
+    // im visibleSeriesIndex merken, damit Verbrauch nicht nochmal berechnet wird
+    visibleSeriesIndex.push(serie.name);
+    //console.log("berechne: "+serie.name);
 
-      // data Array für serie
-      var data = new Array();
+    // data Array für serie
+    var data = new Array();
 
-      // initialisiere letztes Werteobject 
-      var last_y = this.data[0].y;
-      var diff = 0;
-      $(this.data).each(function(i, fb){
-        diff = Math.round((fb.y-last_y)*10)/10;
-        last_y = fb.y;
-        data.push([fb.x,diff]);
-        //console.log("i="+i+" fb.x="+fb.x+" fb.y="+fb.y+" diff="+diff+" last_y="+last_y);
-        // log_object(this);
-      });
-      zaehler_chart.addSeries({ 
-        name: "Verbrauch "+serie.name,
+    // initialisiere letztes Werteobject 
+    var last_y = this.data[0].y;
+    var diff = 0;
+    $(this.data).each(function(i, fb){
+      diff = Math.round((fb.y-last_y)*10)/10;
+      last_y = fb.y;
+      data.push([fb.x,diff]);
+      //console.log("i="+i+" fb.x="+fb.x+" fb.y="+fb.y+" diff="+diff+" last_y="+last_y);
+      // log_object(this);
+    });
+    zaehler_chart.addSeries({ 
+      name: "Verbrauch "+serie.name,
         data: data,
         yAxis: 1,
         type: 'column',

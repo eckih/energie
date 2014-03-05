@@ -135,7 +135,7 @@ class ZaehlersController < ApplicationController
     last_wert = a_werte_normiert[0].dup
     a_werte_normiert.each do |wert|
       # log("debug","wert.x=#{wert.x} last_wert.x=#{last_wert.x}");
-      diff_X = (wert.x - last_wert.x).to_i # Differenz Tage zwischen zwei Werten
+      diff_X = (wert.x.to_date - last_wert.x.to_date).to_i # Differenz Tage zwischen zwei Werten
       if diff_X != 0
         diff_Y = wert.y - last_wert.y # Differenz Zählerstand zwischen zwei Werten
         diff_y = diff_Y / diff_X      # Differenz Zählerstand pro Tag
