@@ -153,7 +153,7 @@ class ZaehlersController < ApplicationController
       last_wert = wert.dup
       #wert.x = wert.x.to_date.strftime("%Q").to_i
       #wert.y = wert.y.to_f
-      wert.y = ("%.1f"%(wert.y - diff_y_zum_monatsersten)).to_f if !diff_y_zum_monatsersten.nil?
+      wert.y = ("%.1f"%(wert.y.to_f - diff_y_zum_monatsersten)).to_f if !diff_y_zum_monatsersten.nil?
       if diff_x_zum_monatsersten.nil?
         wert.x = wert.x.to_date.strftime("%Q").to_i 
       else
