@@ -140,7 +140,7 @@ class ZaehlersController < ApplicationController
         diff_Y = wert.y.to_f - last_wert.y.to_f # Differenz Zählerstand zwischen zwei Werten
         diff_y = diff_Y / diff_X      # Differenz Zählerstand pro Tag
         monatserster = wert.x.to_date.at_beginning_of_month # Datum des Ersten im Monat
-        next_monatserster = wert.x.next_month.at_beginning_of_month # Datum des Ersten im nächsten Monat
+        next_monatserster = wert.x.to_date.next_month.at_beginning_of_month # Datum des Ersten im nächsten Monat
         diff_x_zum_monatsersten = wert.x.to_date - monatserster # Tage vom Wert zum ersten im Monat
         diff_y_zum_monatsersten = diff_x_zum_monatsersten.to_f * diff_y.to_f # Wert vom Ersten im Monat
         y_am_monatsersten = ( wert.y.to_f - diff_y_zum_monatsersten.to_f )
