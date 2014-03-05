@@ -47,7 +47,7 @@ function button_verbrauch(){
 
       // im visibleSeriesIndex merken, damit Verbrauch nicht nochmal berechnet wird
       visibleSeriesIndex.push(serie.name);
-      console.log("berechne: "+serie.name);
+      //console.log("berechne: "+serie.name);
 
       // data Array für serie
       var data = new Array();
@@ -68,7 +68,8 @@ function button_verbrauch(){
         yAxis: 1,
         type: 'column',
         stack: 1,
-        stacking: 'normal'
+        stacking: 'normal',
+        pointRange: serie.pointRange
       });
     }
   });
@@ -78,12 +79,11 @@ var visibleSeriesIndex = new Array; // angezeigten Serien, damit Verbrauch nicht
 $(document).ready(function() {
 
   var options = {
-    chart: { 
-      zoomType: 'xy',
+    chart: { zoomType: 'xy',
   renderTo: 'zaehler_chart'
     },
   title: { text: 'Zählerwerte' },
-  xAxis: { type: 'datetime' },
+  xAxis: { type: 'datetime'},
   yAxis: [
   // yAxis 0
 { title: { text: 'Zählerstand in Kilowattstunden [KWh]' } },
