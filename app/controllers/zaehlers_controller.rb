@@ -137,13 +137,13 @@ class ZaehlersController < ApplicationController
       # log("debug","wert.x=#{wert.x} last_wert.x=#{last_wert.x}");
       diff_X = (wert.x.to_date - last_wert.x.to_date).to_i # Differenz Tage zwischen zwei Werten
       if diff_X != 0
-        diff_Y = wert.y - last_wert.y # Differenz Zählerstand zwischen zwei Werten
+        diff_Y = wert.y.to_f - last_wert.y.to_f # Differenz Zählerstand zwischen zwei Werten
         diff_y = diff_Y / diff_X      # Differenz Zählerstand pro Tag
-        monatserster = wert.x.at_beginning_of_month # Datum des Ersten im Monat
+        monatserster = wert.x.to_date.at_beginning_of_month # Datum des Ersten im Monat
         next_monatserster = wert.x.next_month.at_beginning_of_month # Datum des Ersten im nächsten Monat
-        diff_x_zum_monatsersten = wert.x - monatserster # Tage vom Wert zum ersten im Monat
-        diff_y_zum_monatsersten = diff_x_zum_monatsersten * diff_y # Wert vom Ersten im Monat
-        y_am_monatsersten = ( wert.y - diff_y_zum_monatsersten )
+        diff_x_zum_monatsersten = wert.x.to_date - monatserster # Tage vom Wert zum ersten im Monat
+        diff_y_zum_monatsersten = diff_x_zum_monatsersten.to_f * diff_y.to_f # Wert vom Ersten im Monat
+        y_am_monatsersten = ( wert.y.to_f - diff_y_zum_monatsersten.to_f )
       end
       #if diff_X > 50
       #log("debug","x=#{wert.x} y=#{wert.y} last_x=#{last_wert.x} last_y=#{last_wert.y} diff_X=#{diff_X} diff_Y=#{diff_Y} diff_y=#{diff_y} monatserster=#{monatserster} next_monatserster=#{next_monatserster} diff_x_zum_monatsersten=#{diff_x_zum_monatsersten} diff_y_zum_monatsersten=#{diff_y_zum_monatsersten} y_am_monatsersten=#{y_am_monatsersten} ")
@@ -157,11 +157,11 @@ class ZaehlersController < ApplicationController
       if diff_x_zum_monatsersten.nil?
         wert.x = wert.x.to_date.strftime("%Q").to_i 
       else
-        d_naechster = wert.x.at_beginning_of_month
+        d_naechster = wert.x.to_date.at_beginning_of_month
         #log("debug","check(0, wert.x - diff_x_zum_monatsersten=#{wert.x - diff_x_zum_monatsersten},wert.y=#{wert.y},last_wert.x=#{last_wert.x},last_wert.y=#{last_wert.y}, d_letzter_naechster=#{d_letzter_naechster},diff_y=#{"%.f"%diff_y})")
-        check(0, wert.x - diff_x_zum_monatsersten,wert.y,last_wert.x,last_wert.y, d_letzter_naechster,diff_y, a_werte_anhaengen )
+        check(0, wert.x.to_date - diff_x_zum_monatsersten,wert.y.to_f,last_wert.x.to_date,last_wert.y.to_f, d_letzter_naechster,diff_y.to_f, a_werte_anhaengen )
         d_letzter_naechster = d_naechster
-        wert.x = (wert.x - diff_x_zum_monatsersten).to_date.strftime("%Q").to_i
+        wert.x = (wert.x.to_date - diff_x_zum_monatsersten).to_date.strftime("%Q").to_i
       end
 
     end
