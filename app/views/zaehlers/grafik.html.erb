@@ -1,13 +1,12 @@
 <p id="notice"><%= notice %></p>
-<% title "Stromzählerstände v0.8.12.0" %>
+<% title "Stromzählerstände v0.8.12.1" %>
 <% content_for :head do %> 
   <%= javascript_include_tag "grafik" %>
   <%= javascript_include_tag "highcharts" %>
   <%= javascript_include_tag "modernizr.custom.65737.js" %>
 <% end %>
 <div id="zaehler_chart" style="width: 100%; height: 100%;"></div>
-<%= button_to_function "Verbrauch", "button_verbrauch()" %>
 <%= button_to_function "nebeneinander", "button_nostacking()" %>
 <%= button_to_function "Prozent", "button_percent()" %>
 <%= button_to_function "Clear Local Storage", "button_localStorageClear()" %>
-<%= button_to_function "debug_info()", "button_debug_info()" %>
+<%= if !Rails.env.production? then button_to_function "debug_info()", "button_debug_info()" end %>
