@@ -38,4 +38,7 @@ Energie::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( zaehlers.js grafik.js )
 
+ # http://stackoverflow.com/questions/8013478/how-to-avoid-precompiled-assets-being-served-in-development-mode
+ config.assets.prefix = "/assets_dev"
+ # config.serve_static_assets = false
 end
