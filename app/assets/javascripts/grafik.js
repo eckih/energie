@@ -31,6 +31,7 @@ function initlocalStorage(){
 
 function button_localStorageClear(){
 localStorage.clear();
+alert("Lokalen Speicher im Browser für diese Seite gelöscht");
 }
 
 function show_storaged_series(){
