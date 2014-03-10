@@ -9,8 +9,10 @@ grafik.js: grafik-178dcf5c00c2562b5f0a2e3375a94a13.js
 grafik/index.js: grafik-178dcf5c00c2562b5f0a2e3375a94a13.js
 highcharts.js: highcharts-22ca6ae89ec0b56c74f31ce3e39991aa.js
 highcharts/index.js: highcharts-22ca6ae89ec0b56c74f31ce3e39991aa.js
-zaehlers.js: zaehlers-4eac06c50412f888c2bd31b2cfdf94f4.js
-zaehlers/index.js: zaehlers-4eac06c50412f888c2bd31b2cfdf94f4.js
+modernizr.custom.65737.js: modernizr.custom.65737-ca5c317bcb2b716db866fb79cf627b95.js
+modernizr/index.custom.65737.js: modernizr.custom.65737-ca5c317bcb2b716db866fb79cf627b95.js
+zaehlers.js: zaehlers-3e7fba0ea863fcc8b271c7f3f58463a9.js
+zaehlers/index.js: zaehlers-3e7fba0ea863fcc8b271c7f3f58463a9.js
 application.css: application-74f6ccb1f988940616e588dee635089f.css
 application/index.css: application-74f6ccb1f988940616e588dee635089f.css
 jquery.min.map: jquery.min-6c267bfd2b3f36e6edccb2e584934c1c.map
