@@ -18,7 +18,7 @@ console.log("+++ Begin debug_info()");
     }
   }
 
-console.log("+++ End debug_info()");
+console.log(" ++ End debug_info()");
 }
 
 function initlocalStorage(){
@@ -97,6 +97,12 @@ function addverbrauch(chart, serie) {
     //var diff = 0;
     $(serie.data).each(function(i, fb){
       var diff = Math.round((fb.y-last_y)*10)/10;
+
+      // negative Werte löschen
+      if (diff < 0){
+        diff = 0;
+      }
+
       last_y = fb.y;
       data.push([fb.x,diff]);
       //console.log("i="+i+" fb.x="+fb.x+" fb.y="+fb.y+" diff="+diff+" last_y="+last_y);

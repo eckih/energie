@@ -1,3 +1,7 @@
+<% content_for :head do %> 
+  <%= javascript_include_tag "werte" %>
+  <%= javascript_include_tag "best_in_place" %>
+<% end %>
 <h1>Eingabe der Energiewerte</h1>
 
   <p>Tag der Ablesung: <%= text_field_tag "tagderAblesung" %></p>
@@ -7,6 +11,7 @@
     <th>Zähler</th>
     <th>Stand</th>
     <th>Datum</th>
+    <th></th>
     <th>Id</th>
 
   </tr>
@@ -17,13 +22,15 @@
 	    <td><%= best_in_place wert, :stand %></td>
 	    <td><%= best_in_place wert, :datum, :type => :date, :classes => "hasDatePicker wdatum" ,:data => {:stand => wert.stand } %></td>
 	    <!-- :activator => "#best_in_place_wert_#{wert.id}_stand" %-->
-	    <!--td>< select_date(wert.datum) %></td-->
+      <!--td>< select_date(wert.datum) %></td-->
+      <td>  </td>
 	    <td><%= wert.id %></td>
 	<% end %>
 <% end %>
 </table>
 
-<%= form_for(@werte) do |f| %>
-  <%= f.label :wert %><br />
-  <%= f.number_field :wert %><br />
-<% end %> 
+<%#= form_for(@werte) do |f| %>
+  <%#= f.label :wert %><br />
+  <%#= f.number_field :wert %><br />
+  <%# end %> 
+

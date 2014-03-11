@@ -17,11 +17,14 @@ class ZaehlersController < ApplicationController
     a_werte_normiert = Array.new
     a_series = Array.new
     @zaehlers.each do |zaehler|
-      log("debug","Zähler id=#{zaehler.id} kurzbez=#{zaehler.kurzbezeichnung}")
+      #log("debug","Zähler id=#{zaehler.id} kurzbez=#{zaehler.kurzbezeichnung}")
       a_werte_normiert = werte_normieren(zaehler)
       # a_series << { "name" => zaehler.kurzbezeichnung, "data" => a_werte.sort_by{|x| x.x }, "id" => zaehler.id.to_s }
       pointRange = 24 * 3600 * 1000 * 30
       a_series << { "id" => zaehler.id.to_s , "name" => zaehler.kurzbezeichnung, "data" => a_werte_normiert.sort_by{|x| x.x }}
+    end
+    if !Rails.env.production?
+      ausreisser(a_series)
     end
     render json: a_series.to_json
   end
@@ -120,6 +123,7 @@ class ZaehlersController < ApplicationController
 
   private
   def werte_normieren(zaehler)
+
     a_werte_anhaengen = Array.new
 
     d_letzter_naechster = "2000-01-01".to_date
@@ -134,44 +138,47 @@ class ZaehlersController < ApplicationController
 
     last_wert = a_werte_normiert[0].dup
     a_werte_normiert.each do |wert|
-      # log("debug","wert.x=#{wert.x} last_wert.x=#{last_wert.x}");
-      diff_X = (wert.x.to_date - last_wert.x.to_date).to_i # Differenz Tage zwischen zwei Werten
-      if diff_X != 0
-        diff_Y = wert.y.to_f - last_wert.y.to_f # Differenz Zählerstand zwischen zwei Werten
-        diff_y = diff_Y / diff_X      # Differenz Zählerstand pro Tag
-        monatserster = wert.x.to_date.at_beginning_of_month # Datum des Ersten im Monat
-        next_monatserster = wert.x.to_date.next_month.at_beginning_of_month # Datum des Ersten im nächsten Monat
-        diff_x_zum_monatsersten = wert.x.to_date - monatserster # Tage vom Wert zum ersten im Monat
-        diff_y_zum_monatsersten = diff_x_zum_monatsersten.to_f * diff_y.to_f # Wert vom Ersten im Monat
-        y_am_monatsersten = ( wert.y.to_f - diff_y_zum_monatsersten.to_f )
-      end
-      #if diff_X > 50
-      #log("debug","x=#{wert.x} y=#{wert.y} last_x=#{last_wert.x} last_y=#{last_wert.y} diff_X=#{diff_X} diff_Y=#{diff_Y} diff_y=#{diff_y} monatserster=#{monatserster} next_monatserster=#{next_monatserster} diff_x_zum_monatsersten=#{diff_x_zum_monatsersten} diff_y_zum_monatsersten=#{diff_y_zum_monatsersten} y_am_monatsersten=#{y_am_monatsersten} ")
+      #if !(last_wert.y < wert.y)
+        # log("debug","wert.x=#{wert.x} last_wert.x=#{last_wert.x}");
+        diff_X = (wert.x.to_date - last_wert.x.to_date).to_i # Differenz Tage zwischen zwei Werten
+        if diff_X != 0
+          diff_Y = wert.y.to_f - last_wert.y.to_f # Differenz Zählerstand zwischen zwei Werten
+          diff_y = diff_Y / diff_X      # Differenz Zählerstand pro Tag
+          monatserster = wert.x.to_date.at_beginning_of_month # Datum des Ersten im Monat
+          next_monatserster = wert.x.to_date.next_month.at_beginning_of_month # Datum des Ersten im nächsten Monat
+          diff_x_zum_monatsersten = wert.x.to_date - monatserster # Tage vom Wert zum ersten im Monat
+          diff_y_zum_monatsersten = diff_x_zum_monatsersten.to_f * diff_y.to_f # Wert vom Ersten im Monat
+          y_am_monatsersten = ( wert.y.to_f - diff_y_zum_monatsersten.to_f )
+        end
+        #if diff_X > 50
+        #log("debug","x=#{wert.x} y=#{wert.y} last_x=#{last_wert.x} last_y=#{last_wert.y} diff_X=#{diff_X} diff_Y=#{diff_Y} diff_y=#{diff_y} monatserster=#{monatserster} next_monatserster=#{next_monatserster} diff_x_zum_monatsersten=#{diff_x_zum_monatsersten} diff_y_zum_monatsersten=#{diff_y_zum_monatsersten} y_am_monatsersten=#{y_am_monatsersten} ")
 
-      #a_werte_anhaengen << set_wert( monatserster, y_am_monatsersten )
-      #end
+        #a_werte_anhaengen << set_wert( monatserster, y_am_monatsersten )
+        #end
+        #wert.x = wert.x.to_date.strftime("%Q").to_i
+        #wert.y = wert.y.to_f
       last_wert = wert.dup
-      #wert.x = wert.x.to_date.strftime("%Q").to_i
-      #wert.y = wert.y.to_f
-      if !diff_y_zum_monatsersten.nil?
-      wert.y = ("%.1f"%(wert.y.to_f - diff_y_zum_monatsersten)).to_f
-      else
-        wert.y = ("%.1f"%wert.y).to_f
-      end
+        if !diff_y_zum_monatsersten.nil?
+          wert.y = ("%.1f"%(wert.y.to_f - diff_y_zum_monatsersten)).to_f
+        else
+          wert.y = ("%.1f"%wert.y).to_f
+        end
 
-      if diff_x_zum_monatsersten.nil?
-        wert.x = wert.x.to_date.strftime("%Q").to_i 
-      else
-        d_naechster = wert.x.to_date.at_beginning_of_month
-        #log("debug","check(0, wert.x - diff_x_zum_monatsersten=#{wert.x - diff_x_zum_monatsersten},wert.y=#{wert.y},last_wert.x=#{last_wert.x},last_wert.y=#{last_wert.y}, d_letzter_naechster=#{d_letzter_naechster},diff_y=#{"%.f"%diff_y})")
-        check(0, wert.x.to_date - diff_x_zum_monatsersten,wert.y.to_f,last_wert.x.to_date,last_wert.y.to_f, d_letzter_naechster,diff_y.to_f, a_werte_anhaengen )
-        d_letzter_naechster = d_naechster
-        wert.x = (wert.x.to_date - diff_x_zum_monatsersten).to_date.strftime("%Q").to_i
-      end
+        if diff_x_zum_monatsersten.nil?
+          wert.x = wert.x.to_date.strftime("%Q").to_i 
+        else
+          d_naechster = wert.x.to_date.at_beginning_of_month
+          #log("debug","check(0, wert.x - diff_x_zum_monatsersten=#{wert.x - diff_x_zum_monatsersten},wert.y=#{wert.y},last_wert.x=#{last_wert.x},last_wert.y=#{last_wert.y}, d_letzter_naechster=#{d_letzter_naechster},diff_y=#{"%.f"%diff_y})")
+          check(0, wert.x.to_date - diff_x_zum_monatsersten,wert.y.to_f,last_wert.x.to_date,last_wert.y.to_f, d_letzter_naechster,diff_y.to_f, a_werte_anhaengen )
+          d_letzter_naechster = d_naechster
+          wert.x = (wert.x.to_date - diff_x_zum_monatsersten).to_date.strftime("%Q").to_i
+
+        end
+      #end
 
     end
     a_werte_anhaengen.each do |w|
-      log("debug", "w.x=#{w.x} w.y=#{w.y}")
+      #log("debug", "w.x=#{w.x} w.y=#{w.y}")
       a_werte_normiert << w
     end
     #a_werte_normiert << a_werte_anhaengen
@@ -189,7 +196,7 @@ class ZaehlersController < ApplicationController
     if (((d_letzter_naechster < prev_erster) && (i < 9) && (d_letzter_naechster != "2000-01-01".to_date)) ||((d_letzter_naechster == prev_erster) && (i > 1)))
       #log("debug","+++Zaehler d_letzter_naechster=#{d_letzter_naechster} prev_prev_prev_erster=#{prev_erster} y=#{y} last_y=#{last_y} dy=#{dy} dx=#{dx} dy/dx=#{dxy} y_neu=#{y_neu} y-(dxy * ( x - prev_erster))= #{y-(dxy * ( x - prev_erster))} ")
       if (i > 1)
-        log("debug", "i=#{i} x=#{x} y=#{y} d_letzter_naechster=#{d_letzter_naechster} prev_erster=#{prev_erster}")
+        #log("debug", "i=#{i} x=#{x} y=#{y} d_letzter_naechster=#{d_letzter_naechster} prev_erster=#{prev_erster}")
         set_wert(x,"%.1f"%y,a_werte_anhaengen)
       end
       check(i,prev_erster,y_neu,x, y,d_letzter_naechster,diff_y, a_werte_anhaengen )
@@ -197,11 +204,51 @@ class ZaehlersController < ApplicationController
   end
 
   def set_wert(x,y,a_werte_anhaengen)
-    log("debug","set_wert(#{x}, #{y})");
+    #log("debug","set_wert(#{x}, #{y})");
     neuer_wert = Wert.select('stand AS y, datum AS x').limit(1).dup
     neuer_wert[0].x = x.to_date.strftime("%Q").to_i
     neuer_wert[0].y = y.to_f 
-    log("debug","set_werte: neuer_wert[0].inspect=#{neuer_wert[0].inspect}");
+    #log("debug","set_werte: neuer_wert[0].inspect=#{neuer_wert[0].inspect}");
     a_werte_anhaengen << neuer_wert[0]
+  end
+
+  def ausreisser(a_series)
+    # Ausreisser entdecken
+    a_series.each do |zaehler|
+      last_diff_Y = 0
+      a_diff = Array.new
+
+      last_wert = zaehler['data'][0].dup
+
+      zaehler['data'].each do |wert|  
+        diff_Y = wert.y.to_f - last_wert.y.to_f # Differenz Zählerstand zwischen zwei Werten
+      a_diff << (diff_Y/wert.y.to_f)
+      last_wert = wert.dup
+    end
+
+    # min und max Wert löschen für besseren Durchschnitt siehe shift und pop S.589 Rails 3.1 Buch Galileo Computing
+    if a_diff.size > 2
+      a_diff.sort.shift 
+      a_diff.sort.pop
+    end
+    # Durchschnitt des Arrays
+    avg_a_diff = a_diff.instance_eval { reduce(:+) / size.to_f }.abs
+
+    last_wert = zaehler['data'][0].dup
+    zaehler['data'].each do |wert|  
+
+      diff_Y = ((wert.y.to_f - last_wert.y.to_f)/wert.y.to_f).abs # Differenz Zählerstand zwischen zwei Werten
+        diff_Y_zu_avg = (diff_Y-avg_a_diff).abs
+        #percent_diff = (diff_Y/diff_Y_zu_avg).abs
+         percent_diff = (diff_Y_zu_avg/avg_a_diff).abs
+        # percent_diff = (diff_Y/avg_a_diff).abs
+        log_schwelle =  7
+        if ((percent_diff > log_schwelle) || (percent_diff < (1/log_schwelle)))
+          log("debug","#{zaehler['id']} #{zaehler['name']} #{Time.at(wert.x/(1000)).strftime("%d.%m.%Y")} wert.y=#{wert.y} last_wert.y=#{last_wert.y} diff_Y=#{"%.1f"%diff_Y} avg_a_diff=#{"%1.5f"%(avg_a_diff)} diff_Y_zu_avg=#{"%.3f"%(diff_Y_zu_avg)} %diff=#{"%.3f"%(percent_diff)}  diff_Y_zu_avg/avg_a_diff=#{"%.3f"%(diff_Y_zu_avg/avg_a_diff)}")
+        end
+        last_diff_Y = diff_Y
+        last_wert = wert.dup
+      end
+    end
   end
 end

@@ -27,11 +27,11 @@ class WerteController < ApplicationController
   end
   
   def eingabe
-    log("debug","")
     @zaehlers = Zaehler.all
+    log("debug","@zaehlers.size=#{@zaehlers.size}")
     @arr = Array.new(@zaehlers.size)
     for @zaehler in @zaehlers
-      @arr[@zaehlers.index(@zaehler)] = Wert.create(zaehler_id: @zaehler.id,datum: Date.today)
+      @arr[@zaehlers.index(@zaehler)] = Wert.create(zaehler_id: @zaehler.id,datum: Date.today, stand: 0)
     end
 
     respond_to do |format|
@@ -61,7 +61,7 @@ class WerteController < ApplicationController
 
     @arr = Array.new(@zaehlers.size)
     for @zaehler in @zaehlers
-      @arr[@zaehlers.index(@zaehler)] = Wert.create(zaehler_id: @zaehler.id,datum: Date.today)
+      @arr[@zaehlers.index(@zaehler)] = Wert.create(zaehler_id: @zaehler.id,datum: Date.today, stand:0 )
     end
 
     redirect_to werte_url, notice: 'Werte wurden erfolgreich erstellt.'
